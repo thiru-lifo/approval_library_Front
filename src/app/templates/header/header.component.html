@@ -1,0 +1,458 @@
+<header>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-5 col-8 pl-0 hpad">
+        <div class="logo-flex">
+          <div class="header-left">
+            <a
+              href="javascript:void(0);"
+              class="menu-icon mobile-menu"
+              (click)="toggleMenu()"
+              ><span class="material-icons-outlined">menu</span></a
+            >
+            <!--<img src="{{ appLogo }}" class="img-fluid" alt="" title="">-->
+            <h3 class="unit_title">{{ unitTitle }}</h3>
+          </div>
+          <div class="breadcrumb-header">
+            <breadcrumb #parent>
+              <ul>
+                <li
+                  *ngIf="currentPath != '#/dashboard/admin'"
+                  class="breadcrumb-item"
+                >
+                  <a href="javascript:void(0)" routerLink="/dashboard/admin"
+                    >Dashboard</a
+                  >
+                  <span
+                    class="material-icons"
+                    style="
+                      margin: 0 5px;
+                      position: relative;
+                      top: 5px;
+                      color: #736d70;
+                    "
+                    >keyboard_arrow_right</span
+                  >
+                </li>
+                <ng-template ngFor let-route [ngForOf]="parent.breadcrumbs">
+                  <ng-container *ngIf="header != 'admin'">
+                    <li *ngIf="!route.terminal" class="breadcrumb-item">
+                      <a href="" [routerLink]="[route.url]">{{
+                        route.displayName
+                      }}</a>
+                      <span
+                        class="material-icons"
+                        style="
+                          margin: 0 5px;
+                          position: relative;
+                          top: 5px;
+                          color: #736d70;
+                        "
+                        >keyboard_arrow_right</span
+                      >
+                    </li>
+                  </ng-container>
+                  <ng-container *ngIf="header == 'admin'">
+                    <li *ngIf="!route.terminal" class="breadcrumb-item">
+                      <a href="javascript:void(0)">{{ route.displayName }}</a>
+                      <span
+                        class="material-icons"
+                        style="
+                          margin: 0 5px;
+                          position: relative;
+                          top: 5px;
+                          color: #736d70;
+                        "
+                        >keyboard_arrow_right</span
+                      >
+                    </li>
+                  </ng-container>
+
+                  <li
+                    *ngIf="route.terminal"
+                    class=""
+                    class="breadcrumb-item active"
+                    aria-current="page"
+                  >
+                    {{ route.displayName }}
+                  </li>
+                </ng-template>
+              </ul>
+            </breadcrumb>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-8 pl-0 hpad">
+        <div class="satellite_unit_outer_div">
+          <!--<div *ngFor="let satelliteData of jsonData" class="satellite_unit_inner_div">
+                  <div class="satellite_unit_inner_div">
+                    <img src="{{ appLogo }}" class="img-fluid satellite_unit_image" alt="" title="">
+                    <p class="satellite_unit_image_title">{{satelliteData.satellite_unit}}</p>
+                    <p class="satellite_unit_image_title">satellite unit 1</p>
+                  </div>
+                </div> -->
+          <!-- <div class="satellite_unit_inner_div">
+                  <img src="{{ appLogo }}" class="img-fluid satellite_unit_image" alt="" title="">
+                  <p class="satellite_unit_image_title">satellite unit 1</p>
+                </div>
+
+                <div class="satellite_unit_inner_div">
+                  <img src="{{ appLogo }}" class="img-fluid satellite_unit_image" alt="" title="">
+                  <p class="satellite_unit_image_title">satellite unit 2</p>
+                </div>
+
+                <div class="satellite_unit_inner_div">
+                  <img src="{{ appLogo }}" class="img-fluid satellite_unit_image" alt="" title="">
+                  <p class="satellite_unit_image_title">satellite unit 3</p>
+                </div>
+
+                <div class="satellite_unit_inner_div">
+                  <img src="{{ appLogo }}" class="img-fluid satellite_unit_image" alt="" title="">
+                  <p class="satellite_unit_image_title">satellite unit 4</p>
+                </div> -->
+        </div>
+      </div>
+      <div class="col-md-3 col-4">
+        <div class="header-right text-right">
+          <div class="reg-count"></div>
+          <div class="notify">
+            <div class="dropdown">
+              <a
+                href="javascript:void(0)"
+                class="dropdown-toggle notification-icon"
+                id="dropdownNotification"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                ><span class="material-icons-outlined">notifications</span>
+                <span
+                  class="badge badge-success"
+                  *ngIf="notificationsList && notificationsList.length > 0"
+                  >{{ notificationsList.length }}</span
+                >
+              </a>
+              <div
+                class="dropdown-menu notification-dropdown p-0"
+                aria-labelledby="dropdownNotification"
+              >
+                <div class="list-group">
+                  <ng-container *ngIf="notificationsList.length > 0">
+                    <ng-container
+                      *ngFor="let notification of notificationsList"
+                    >
+                      <a
+                        href="javascript:void(0)"
+                        (click)="
+                          viewTrialRequest(notification.trial, notification.id)
+                        "
+                        class="list-group-item list-group-item-action"
+                        aria-current="true"
+                      >
+                        <div class="">
+                          <p class="mb-1">{{ notification.message }}</p>
+                          <p class="hmnotify-date">
+                            {{ moment(notification.created_on).fromNow() }}
+                          </p>
+                        </div>
+                      </a>
+                    </ng-container>
+                  </ng-container>
+                  <ng-container *ngIf="notificationsList.length == 0">
+                    <a
+                      href="javascript:void(0)"
+                      class="list-group-item no-notification p-0"
+                      aria-current="true"
+                    >
+                      <img
+                        src="assets/images/no-alarm.png"
+                        style="width: 100%"
+                        class="img-fluid"
+                        alt=""
+                        title=""
+                      />
+                    </a>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="profile-drop">
+            <div class="dropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <img
+                  src="assets/images/captain.png"
+                  class="img-fluid"
+                  alt=""
+                  title=""
+                />
+                <span class="text-white" style="font-size: 13px"
+                  >&nbsp;&nbsp;
+                  <!-- {{
+                    api.userid
+                      ? api.userid.first_name
+                      : "" + " " + api.userid
+                      ? api.userid.last_name
+                      : ""
+                  }} -->
+                  {{
+                    userDetail
+                      ? userDetail.loginname
+                      : "" + " " + api.userid
+                      ? api.userid.first_name
+                      : ""
+                  }}
+                  <span
+                    style="
+                      font-size: 10px;
+                      display: block;
+                      margin: -13px 0px 0px -9px;
+                    "
+                  ></span>
+                </span>
+                <!--<p class="text-white" style="font-size:13px;margin-bottom: 0px;margin-left: 40px;">{{ api.userid.role_center[0].user_role.code === 'admin' ? 'Admin' : api.userid.role_center[0].user_role.name }}</p>-->
+                <p
+                  class="text-white"
+                  style="font-size: 13px; margin-bottom: 0px; margin-left: 40px"
+                >
+                  {{ api.userid.designation }}
+                </p>
+              </button>
+
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <!-- <a class="dropdown-item" href="#">My Profile</a> -->
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  data-toggle="modal"
+                  data-target="#change-password"
+                  >Change Password</a
+                >
+                <a
+                  href="javascript:void(0)"
+                  class="dropdown-item"
+                  (click)="logout()"
+                  >Logout</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div
+  class="modal fade master-modal-style"
+  id="satellite_data"
+  data-keyboard="false"
+  data-backdrop="static"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          {{ satellite_unit_inner }}
+        </h5>
+      </div>
+      <div class="modal-body form-style-md form-style-font linux">
+        <div class="form-row">
+          <div class="col-md-6">
+            <div class="content-box bg3 d-flex align-items-center">
+              <div class="left-icon">
+                <img src="assets/images/ship.png" alt="" title="" />
+              </div>
+              <div class="content-right">
+                <!-- <p>Completion of Trials</p> -->
+                <a href="" routerLink="/masters/ships">
+                  <p>Ships</p>
+                  <h3>{{ ship_length > 0 ? ship_length : "-" }}</h3>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="content-box bg4 d-flex align-items-center">
+              <div class="left-icon">
+                <img src="assets/images/equipments.png" alt="" title="" />
+              </div>
+              <div class="content-right">
+                <!-- <p>Trials Conducted in 2022</p> -->
+
+                <a href="" routerLink="/masters/equipments">
+                  <p>Equipments</p>
+                  <h3>{{ equipments_length > 0 ? equipments_length : "-" }}</h3>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="content-box bg6 d-flex align-items-center">
+              <div class="left-icon">
+                <img src="assets/images/trial2.png" alt="" title="" />
+              </div>
+              <div class="content-right">
+                <!-- <p>Trials Reports pending</p> -->
+                <a href="" routerLink="/transaction/trials">
+                  <p>Trials</p>
+                  <h3>
+                    {{ transaction_length > 0 ? transaction_length : "-" }}
+                  </h3>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        #closebutton
+        data-dismiss="modal"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+<!-- modal Change Password -->
+<div
+  class="modal fade master-modal-style"
+  id="change-password"
+  data-keyboard="false"
+  data-backdrop="static"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Change Password?</h5>
+      </div>
+      <div class="modal-body form-style-md form-style-font linux">
+        <p>
+          Please enter your old password, for security’s sake, and then enter
+          your new password twice so we can verify you typed it in correctly.
+        </p>
+        <div
+          id="hide_alert"
+          class="alert alert-danger form-error-message my-4"
+          *ngIf="error_msg == true"
+        >
+          {{ ErrorMsg }}
+        </div>
+        <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmit()">
+          <div class="form-group-label">
+            <mat-label>Old password <b class="star">*</b></mat-label>
+            <mat-form-field appearance="legacy">
+              <input
+                matInput
+                placeholder=""
+                type="password"
+                formControlName="old_password"
+              />
+              <mat-error
+                *ngIf="
+                  changePasswordForm.controls['old_password'].hasError(
+                    'required'
+                  )
+                "
+                >Enter old password</mat-error
+              >
+            </mat-form-field>
+          </div>
+          <div class="form-group-label">
+            <mat-label>New password <b class="star">*</b></mat-label>
+            <mat-form-field appearance="legacy">
+              <input
+                matInput
+                placeholder=""
+                type="password"
+                formControlName="new_password"
+              />
+              <mat-error
+                *ngIf="
+                  changePasswordForm.controls['new_password'].hasError(
+                    'required'
+                  )
+                "
+                >Enter new password</mat-error
+              >
+              <mat-error
+                *ngIf="
+                  changePasswordForm.controls['new_password'].hasError(
+                    'pattern'
+                  )
+                "
+                >Please enter a minimum of eight characters (atleast one
+                uppercase, lowercase and one number)</mat-error
+              >
+            </mat-form-field>
+          </div>
+          <div class="form-group-label">
+            <mat-label
+              >New password confirmation <b class="star">*</b></mat-label
+            >
+            <mat-form-field appearance="legacy">
+              <input
+                matInput
+                placeholder=""
+                type="password"
+                formControlName="new_password2"
+              />
+              <mat-error
+                *ngIf="
+                  changePasswordForm.controls['new_password2'].hasError(
+                    'required'
+                  )
+                "
+                >Enter confirm password</mat-error
+              >
+              <mat-error
+                *ngIf="
+                  changePasswordForm.controls['new_password2'].hasError(
+                    'mustMatch'
+                  )
+                "
+                >Password and confirm not match</mat-error
+              >
+            </mat-form-field>
+          </div>
+          <!-- <div class="mt-2">
+                    <button mat-raised-button color="primary" class="w-100" routerLink="/authenticate/security-pin">Send</button>
+                </div> -->
+          <div class="form-row button-group-lg button-auto mt-2">
+            <div class="col-md-6 col-6">
+              <button type="submit" class="btn btn-primary w-100">Save</button>
+            </div>
+            <div class="col-md-6 col-6">
+              <button
+                type="button"
+                class="btn btn-outline-primary w-100"
+                (click)="close()"
+                #closebutton
+                data-dismiss="modal"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

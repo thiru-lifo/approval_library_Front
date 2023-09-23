@@ -1,0 +1,30 @@
+.body-card{
+  .landing-box{
+    .admin-box{
+      .img-div{
+        padding: 22px 28px;
+       img{
+        max-width: 140px;
+      }
+    }
+    }
+  }
+}
+.body-card{
+  .landing-box{
+    .admin-box{
+      text-align: center; background-color: #fff;border-radius: 8px;margin-bottom: 30px;
+    }
+  }
+}
+.bg-img{
+  background: url(./assets/images/loginbg.jpg) no-repeat top center;position: relative;margin: 0 !important;padding-top: 170px;
+}
+.bg-img::before{position: absolute;content: "";background-color: #39317a;top: 0;left: 0;bottom: 0;right: 0; opacity: 0.7;}
+.landing-box{
+  .admin-box{
+    .heading-text{ background-color: #0b014a; padding: 10px 24px;
+    h3{color: #fff; font-size: 16px;margin-bottom: 0;}
+    }
+  }
+}

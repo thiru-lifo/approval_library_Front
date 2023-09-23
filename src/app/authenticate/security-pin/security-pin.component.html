@@ -1,0 +1,42 @@
+<section class="login-page">
+	<div class="container-fluid">
+		<div class="login-cover">
+			<div class="row no-gutters d-flex align-items-center">
+				<div class="col-md-7">
+					<div class="login-leftbg" style="background: url(../assets/images/leaf-patten.png) no-repeat right top #651137;">
+						<img src="assets/images/login-image.png" class="img-fluid" alt="" title="">
+					</div>
+				</div>
+				
+				<div class="col-md-5 col-12">
+					<div class="login-box">
+						<div class="logo text-center">
+							<img src="assets/images/logo.png">
+							<!-- <h1>Sign in to Stemz Global</h1> -->
+						</div>
+						<div class="login-form">
+							<form [formGroup]="codeverifyForm" >
+							<h3>Enter Verification Code <b class="star">*</b></h3>
+							<p>Please enter the code sent to your email address.</p>
+					  		<div class="form-group-label">
+					  		  <!-- <mat-label>Code <b class="star">*</b></mat-label> -->
+							  <mat-form-field appearance="legacy" >
+							    <input matInput placeholder="" formControlName="verification_code">
+							    <mat-error *ngIf="Error('verification_code','required')">Verification code is required</mat-error>
+							  </mat-form-field>
+							</div>
+							<div class="remember-link">
+								<a href="javascript:void(0);" (click)="resendCode()" class="float-right">Resend Code</a>
+							</div>
+							<div class="mt-2">
+								<button mat-raised-button color="primary" (click)="CodeVerify()" class="w-100" >Submit</button>
+							</div>
+							</form>
+					  	</div>
+					</div>
+				</div>			
+			</div>
+		</div>
+	</div>
+</section>
+

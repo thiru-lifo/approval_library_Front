@@ -1,0 +1,277 @@
+Login and Forgot Passwor Pages :
+https://www.figma.com/file/5c13EI9HvfRVsxy8LqIfXp/Purple-Portal?node-id=0%3A1
+
+Dashboard:
+https://www.figma.com/proto/5c13EI9HvfRVsxy8LqIfXp/Purple-Portal?page-id=18%3A2&node-id=45%3A662&viewport=241%2C48%2C0.5&scaling=scale-down&starting-point-node-id=45%3A662
+
+
+Purple IQ Running Steps :
+
+ng new appname
+ng serve
+ng generate component pagename
+
+Create Module with routing automatically:
+ng generate module orders --route orders --module app.module
+
+ng generate module analysis --route analysis --module app.module
+
+Module inside module:
+ng generate module gttt/erequisition --route erequisition --module gttt.module
+ng generate module gttt/etrials --route etrials --module gttt.module
+
+module inside component:
+ng g c gttt/etrials/page1
+
+Ereq:
+ng g c gttt/erequisition/ehmfptle-reships
+ng g c gttt/erequisition/ehmfpt-requistion
+ng g c gttt/erequisition/ehmgtg-paships
+ng g c gttt/erequisition/ehmfptle-talwar-clasships
+
+ehmfptle-reships
+ehmfptle-talwar-clasships	
+ehmfpt-requistion
+ehmgtg-paships
+
+GTTT:
+ng generate module gttt --route gttt --module app.module
+
+
+Module
+   Component
+
+For Module Creation : ng g m <ModuleName>
+For Component Creation : ng g c <ModuleName>/<ComponentName> -m <ModuleName>
+
+Eg
+
+ng g m customer
+
+ng g c customer/customer-list -m customer
+ng g c customer/customer-add -m customer
+ng g c customer/customer-view -m customer
+-----------------
+installed material :
+ng add @angular/material
+------------------------
+Bootstrap :
+https://ng-bootstrap.github.io/#/getting-started
+ng add @ng-bootstrap/ng-bootstrap
+Version 10 installed.
+
+for dropdown and other action work :
+npm install jquery --save
+
+add this code to sidemenu.components.ts
+import * as $ from 'jquery';
+
+-----------------
+install on final Metismenu :
+https://github.com/onokumus/metismenu#getting-started
+npm install --save metismenu
+
+Iconify Light
+https://icon-sets.iconify.design/mdi-light/account/
+add index.html code
+<script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>
+
+Used Icons :
+https://icon-sets.iconify.design/mdi/check-circle-outline/
+
+Module
+   Component
+
+For Module Creation : ng g m <ModuleName>
+For Component Creation : ng g c <ModuleName>/<ComponentName> -m <ModuleName>
+
+Eg
+
+ng g m customer
+
+ng g c customer/customer-list -m customer
+ng g c customer/customer-add -m customer
+ng g c customer/customer-view -m customer
+
+Update Angular Version :
+
+ng update
+
+ng --version
+
+
+-----------------
+
+      Name                               Version                  Command to upd
+ate
+     ---------------------------------------------------------------------------
+-----
+      @angular/cdk                       12.2.13 -> 13.2.0        ng update @ang
+ular/cdk
+      @angular/cli                       12.2.14 -> 13.2.0        ng update @ang
+ular/cli
+      @angular/core                      12.2.15 -> 13.2.0        ng update @ang
+ular/core
+      @angular/material                  12.2.13 -> 13.2.0        ng update @ang
+ular/material
+
+    There might be additional packages which don't provide 'ng update' capabilit
+ies that are outdated.
+    You can update the additional packages by running the update command of your
+ package manager.
+-----------------------
+
+ng update @angular/cli @angular/core
+
+Metismenu :
+npm install @metismenu/angular
+$ npm install @metismenu/angular
+add css to angular.json
+"./node_modules/metismenujs/dist/metismenujs.css",
+------------------------
+-------------------------
+Install Chart.Js :
+npm install chart.js
+component.ts add this code
+import Chart from 'chart.js/auto';
+https://www.chartjs.org/docs/latest/charts/radar.html
+
+-----------------
+---------------
+
+Scroll CSS:
+https://ishadeed.com/article/custom-scrollbars-css/
+
+------------------------------------
+Bootstrap Issue:
+https://www.kiltandcode.com/2020/07/16/how-to-add-bootstrap-4-to-an-angular-10-app/
+ng add @ng-bootstrap/ng-bootstrap
+npm install popper.js --save
+
+add angular.json
+"styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/metismenujs/dist/metismenujs.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.scss"
+            ],
+            "scripts": ["./node_modules/jquery/dist/jquery.slim.min.js", "./node_modules/popper.js/dist/umd/popper.min.js", "./node_modules/bootstrap/dist/js/bootstrap.min.js"]
+
+------------------------------------
+
+Move folder to live url server:
+ng build --prod
+
+Jquery show hide issue:
+npm - --save-dev @types/jquery
+add code in view.component.ts
+import * as $ from 'jquery';
+
+constructor() { }
+
+  ngOnInit(): void {
+
+    $("#hide").click(function(){
+      $("p").hide();
+    });
+
+  }
+-------------------------
+
+Ng bootstrap v 10 :
+https://ng-bootstrap.github.io/#/components/tooltip/examples
+
+how to apply:
+https://medium.com/codingthesmartway-com-blog/using-bootstrap-with-angular-c83c3cee3f4a
+
+
+chosen:
+https://www.npmjs.com/package/angular-chosen-localytics
+
+used ng-select chosen:
+
+https://ng-select.github.io/ng-select#/data-sources
+https://www.npmjs.com/package/@ng-select/ng-select
+
+https://stackblitz.com/run?file=src/data-source-options-example.component.html
+
+
+video :
+https://www.youtube.com/watch?v=emhxevMRwho
+
+Used npm:
+https://www.npmjs.com/package/@ng-select/ng-select
+https://ng-select.github.io/ng-select#/data-sources
+
+Steps 1:
+npm install --save @ng-select/ng-select
+npm i tslib
+
+Step 2:
+Add pageanem-module.ts
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule } from '@angular/forms';
+
+Step 3:
+imports: [
+    NgSelectModule,
+    FormsModule
+  ]
+
+Step 4:
+Add Css:
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+Step 5:
+Add HTML:
+
+Single Dropdown :
+<ng-select>
+   <ng-option>india</ng-option>
+   <ng-option>australia</ng-option>
+   <ng-option>england</ng-option>
+</ng-select>
+
+Mutiple Select:
+<ng-select [multiple]="true">
+   <ng-option>india</ng-option>
+   <ng-option>australia</ng-option>
+   <ng-option>england</ng-option>
+</ng-select>
+
+Type script add array
+
+----------------------------------
+----------------------------------
+
+Multi Select:
+https://www.youtube.com/watch?v=emhxevMRwho
+
+https://github.com/sujaycse08/AngularDropdown/blob/master/src/app/app.component.ts
+
+
+new try:
+npm i @ng-select/ng-select
+npm uninstall @ng-select/ng-select
+
+--
+npm i @ng-select/ng-select
+
+https://ng-select.github.io/ng-select#/templates
+
+Smooth Scroll:
+npm install angular-smooth-scrollbar
+npm uninstall angular-smooth-scrollbar
+https://www.npmjs.com/package/angular-smooth-scrollbar
+Files and Documentation
+https://github.com/idiotWu/smooth-scrollbar#apis
+
+vi
+https://www.youtube.com/watch?v=z9hwWIlyHb0
+
+https://github.com/Seemspyo/ngx-smooth-scroll/blob/master/projects/ngx-smooth-scroll-demo/src/app/app.module.ts
+
+
+High Chart for all projects:
+
+https://www.highcharts.com/docs/getting-started/install-from-npm

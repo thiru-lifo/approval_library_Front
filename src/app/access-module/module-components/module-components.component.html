@@ -1,0 +1,177 @@
+<section class="body-card">
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="card">
+               <div class="card-header">
+                  <div class="row">
+                     <div class="col-md-6">
+                        <h3>Components</h3>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="text-right">
+                           <a href="#" data-toggle="modal" data-target="#crud-countries" (click)="create()" class="btn btn-primary btn-round-sm">Create</a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="container table-options">
+                  <div class="row">
+                     <div class="col-md-6 ">
+                         <mat-paginator [length]="100" [pageSize]="10"  [pageSizeOptions]="[5,10,15,50,100]"aria-label="Select page" >
+                       </mat-paginator>
+                     </div>
+                     <div class="col-md-6">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Seach your text here</mat-label>
+                            <input matInput (keyup)="applyFilter($event)" class="search-mat-table" #input >
+                        </mat-form-field>
+                     </div>
+                  </div>
+               </div>
+               <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                  <ng-container matColumnDef="module">
+                     <th mat-header-cell *matHeaderCellDef> Module </th>
+                     <td mat-cell *matCellDef="let data"> {{data.module.name}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="name">
+                     <th mat-header-cell *matHeaderCellDef>  Name </th>
+                     <td mat-cell *matCellDef="let data"> {{data.name}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="sequence" >
+                     <th mat-header-cell *matHeaderCellDef> Sequence </th>
+                     <td mat-cell *matCellDef="let data"> {{data.sequence}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="url">
+                     <th mat-header-cell *matHeaderCellDef>  URL </th>
+                     <td mat-cell *matCellDef="let data"> {{data.url}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="status">
+                     <th mat-header-cell *matHeaderCellDef> Status </th>
+                     <td mat-cell *matCellDef="let data"><a href="javascript:void(0)" class="status-field {{data.status=='1'?'text-success':'text-danger'}}" >{{data.status=='1'?'Active':'Inactive'}}</a> </td>
+                  </ng-container>
+                  <ng-container matColumnDef="edit">
+                     <th class="text-center" mat-header-cell *matHeaderCellDef>Edit</th>
+                     <td class="text-center" mat-cell *matCellDef="let data"><a href="#" data-toggle="modal" data-target="#crud-countries" class="edit-icon text-primary"  (click)="onUpdate(data)"><span class="material-icons-outlined">edit</span></a></td>
+                  </ng-container>
+                  <ng-container matColumnDef="delete">
+                     <th class="text-center" mat-header-cell *matHeaderCellDef >Delete</th>
+                     <td  class="text-center" mat-cell *matCellDef="let data"><a  class="edit-icon text-danger" (click) = "onDelete(data.id)"><span class="material-icons-outlined">delete</span></a></td>
+                  </ng-container>
+                  <ng-container matColumnDef="noData">
+                     <th mat-footer-cell *matFooterCellDef [attr.colspan]="displayedColumns.length" class="norecord">
+                         No Records Found!
+                     </th >
+                   </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  <tr mat-footer-row *matFooterRowDef="['noData']" [hidden]="dataSource && dataSource.data.length > 0"></tr>
+                  <tr class="mat-row" *matNoDataRow>
+                     <td *ngIf='filterValue' class="norecord"  colspan="4"><b>No data matching with "{{input.value}}"</b></td>
+                  </tr>
+               </table>
+               
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<!-- modal -->
+<div class="modal fade master-modal-style" id="crud-countries"  data-keyboard="false" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{crudName}} Components</h5>
+         </div>
+         <div class="modal-body form-style-md">
+            <form [formGroup]="this.editForm"(ngSubmit)="onSubmit()">
+            <div class="form-row">
+               <div class="col-md-12" hidden >
+                  <mat-form-field appearance="legacy">
+                     <mat-label> Id</mat-label>
+                     <input matInput placeholder="" formControlName="id" >
+                  </mat-form-field>
+               </div>
+               <div class="col-md-12">
+                     <mat-form-field appearance="legacy">
+                        <mat-label>Select Module Id</mat-label>
+                        <mat-select formControlName="module" (ngModelChange)="moduleChange($event)">
+                        <mat-option>None</mat-option>
+                         <mat-option *ngFor="let module of modules" [value]="module">{{module.name}}</mat-option> 
+                     </mat-select>
+                        <mat-error *ngIf="Error('module','required')">Enter Module Id</mat-error>
+                     </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                  <mat-form-field appearance="legacy">
+                     <mat-label>Component Name</mat-label>
+                     <input matInput placeholder="" formControlName="name">
+                     <mat-error *ngIf="Error('name','required')">Enter Component Name </mat-error>
+                  </mat-form-field>
+               </div>
+               <div class="col-md-12" hidden>
+                  <mat-form-field appearance="legacy">
+                     <mat-label>Type</mat-label>
+                     <input matInput placeholder="" formControlName="type">
+                     <mat-error *ngIf="Error('type','required')">Enter type </mat-error>
+                  </mat-form-field>
+               </div>
+               <div class="col-md-12" >
+                  <mat-form-field appearance="legacy">
+                     <mat-label>URL</mat-label>
+                     <input matInput placeholder="" formControlName="url">
+                     <mat-error *ngIf="Error('url','required')">Enter URL </mat-error>
+                  </mat-form-field>
+               </div>
+               <div class="col-md-12" hidden>
+                  <mat-form-field appearance="legacy">
+                     <input matInput placeholder="" formControlName="created_by"  >
+                  </mat-form-field>
+               </div>
+               <div class="col-md-12" hidden>
+                  <mat-form-field appearance="legacy">
+                     <input matInput placeholder="" formControlName="created_ip"  >
+                  </mat-form-field>
+               </div>
+               <div class="col-md-12" >
+                  <mat-form-field appearance="legacy">
+                     <mat-label>Sequence</mat-label>
+                     <input matInput placeholder="" formControlName="sequence"  >
+                     <mat-error *ngIf="Error('sequence','required')">Enter Sequence </mat-error>
+                  </mat-form-field>
+               </div>
+               <div class="col-md-12">
+                  <mat-form-field appearance="legacy">
+                     <mat-label>Privileges</mat-label>
+                        <mat-select  #select multiple formControlName="action">
+                        <div class="select-all">
+                        <mat-checkbox [(ngModel)]="allSelected"
+                        [ngModelOptions]="{standalone: true}"
+                        (change)="toggleAllSelection()">Select All</mat-checkbox>
+                     </div>
+                        <mat-option (click)="optionClick()" *ngFor="let role of Privileges" [value]="role.id">
+                     {{role.name}}
+                     </mat-option>
+                     </mat-select>
+                  </mat-form-field>
+               </div>
+               <div class="col-md-12">
+                  <div class="form-group form-check">
+                     <input type="checkbox" class="form-check-input" id="exampleCheck1" formControlName="status">
+                     <label class="form-check-label" for="exampleCheck1">Active</label>
+                  </div>
+               </div>
+            </div>
+            <div class="form-row button-group-lg button-auto mt-2">
+               <div class="col-md-6 col-6">
+                  <button type="submit" class="btn btn-primary w-100">Save</button>
+               </div>
+               <div class="col-md-6 col-6">
+                  <button type="button" class="btn btn-outline-primary w-100" (click)="close()" #closebutton  data-dismiss="modal">Cancel</button> 
+               </div>
+            </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>

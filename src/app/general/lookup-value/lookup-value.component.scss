@@ -1,0 +1,22 @@
+table {
+  width: auto;
+}
+
+table td, table th {
+  padding: 2px 10px;
+}
+
+.cdk-overlay-connected-position-bounding-box,
+.cdk-global-overlay-wrapper,
+.cdk-overlay-container{
+z-index: 10000 !important;
+}
+
+
+
+.status-field{background: #6510371f;
+    padding: 5px 10px;
+    border-radius: 40px;
+    font-weight: bold;text-transform: uppercase;
+    font-size: 9px;}
+

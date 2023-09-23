@@ -1,0 +1,256 @@
+<app-page-header></app-page-header>
+
+<body class="dashboard landingbody" style="height: 465px">
+  <section class="w3l-main-slider pb-3" id="home">
+    <div class="companies20-content">
+      <!-- <div class="row">
+          <div class="col-lg-12"> -->
+
+      <!-- <owl-carousel-o [options]="customOptions">
+              <ng-template carouselSlide *ngFor="let item of sliders">
+                <div class="item">
+                  <li>
+                    <div
+                      class="slider-info banner-view bg bg2"
+                      style="background:url('{{item.image}}');background-size: 100% 100%;"
+                    >
+                      <div class="banner-info">
+                        <div class="container-fluid">
+                          <div class="banner-info-bg">
+                            <h5>{{ item.title }}</h5>
+                            <p class="mt-4 pr-lg-4">
+                              <span
+                                style="color: #fff !important"
+                                [innerHTML]="item.description | sanitizeHtml"
+                              ></span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </div>
+              </ng-template>
+            </owl-carousel-o> -->
+
+      <ngb-carousel class="landing-carousel">
+        <ng-template ngbSlide *ngFor="let item of sliders">
+          <div class="picsum-img-wrapper" style="height: 65vh">
+            <img
+              class="img-fluid"
+              src="{{ SlideUrl }}{{ item && item.image }}"
+              alt="Gallery Image"
+              width="100%"
+              style="height: 465px"
+            />
+          </div>
+          <div class="carousel-caption" *ngIf="item.title != ''">
+            <h3 style="color: #fff; font-weight: 600">{{ item.title }}</h3>
+            <span
+              style="color: #fff !important"
+              [innerHTML]="item.description"
+            ></span>
+          </div>
+        </ng-template>
+      </ngb-carousel>
+
+      <!-- </div>
+        </div> -->
+    </div>
+  </section>
+
+  <section class="blogDetailsPageSection pb-1">
+    <div class="container" style="text-align: justify">
+      <div class="row d-flex align-items-center">
+        <div class="col-xl-9 col-lg-9 col-sm-8">
+          <div class="blogDetailsArea">
+            <h2 class="blogHeading mb-3 text-upper">
+              {{ pages && pages.page_title != null ? pages.page_title : "" }}
+            </h2>
+            <p class="fw-bold fs-4 text-gray-600 mb-3 aboutdesc">
+              <span
+                [innerHTML]="
+                  pages && pages.page_content ? pages.page_content : ''
+                "
+              ></span>
+            </p>
+            <a
+              href="javascript:;"
+              class="btn btn-primary btn-lg btn-custom1"
+              routerLink="/authenticate/about-us"
+              >Read More</a
+            >
+          </div>
+        </div>
+        <!-- </div>
+
+           <div class="row">
+            <div class="col-xl-8 col-lg-8 col-sm-8"> -->
+        <!-- <div class="col-lg-8">&nbsp;&nbsp;&nbsp;&nbsp;</div> -->
+        <div class="col-lg-3" *ngIf="pages && trial_code == 'ETMA'">
+          <div class="admin-box text-center">
+            <a
+              class=""
+              href="javascript:void(0)"
+              routerLink="/authenticate/login/etma"
+            >
+              <div class="img-div">
+                <img _ngcontent-rgv-c371="" src="assets/images/etma-logo.jpg" />
+              </div>
+              <div class="heading-text" style="text-align: center">
+                <h3>{{ trial_code }}</h3>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-3" *ngIf="pages && trial_code == 'CBIU'">
+          <div class="admin-box">
+            <a class="" href="javascript:void(0)" (click)="cbiu()">
+              <div class="img-div">
+                <img _ngcontent-rgv-c371="" src="assets/images/cbiu-logo.jpg" />
+              </div>
+              <div class="heading-text" style="text-align: center">
+                <h3 style="margin-right:141px;">{{ trial_code }}</h3>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-3" *ngIf="pages && trial_code == 'GTTT'">
+          <div class="admin-box text-center">
+            <a class="" href="javascript:void(0)" (click)="gttt()">
+              <div class="img-div">
+                <img _ngcontent-rgv-c371="" src="assets/images/gttt-logo.jpg" />
+              </div>
+              <div class="heading-text" style="text-align: center">
+                <h3>{{ trial_code }}</h3>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-3" *ngIf="pages && trial_code == 'MTU'">
+          <div class="admin-box">
+            <a class="" href="javascript:void(0)" (click)="mtu()">
+              <div class="img-div">
+                <img _ngcontent-rgv-c371="" src="assets/images/mtu-logo.jpg" />
+              </div>
+              <div class="heading-text" style="text-align: center">
+                <h3>{{ trial_code }}</h3>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-3" *ngIf="pages && trial_code == 'DTTT'">
+          <div class="admin-box">
+            <a class="" href="javascript:void(0)" (click)="dttt()">
+              <div class="img-div">
+                <img _ngcontent-rgv-c371="" src="assets/images/dttt-logo.jpg" />
+              </div>
+              <div class="heading-text" style="text-align: center">
+                <h3>{{ trial_code }}</h3>
+              </div>
+            </a>
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-sm-12"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blogDetailsPageSection landing-graph">
+    <div class="container">
+      <div class="form-row">
+        <div class="col-md-4 col-sm-4 col-xl-4 col-lg-4">
+          <div class="card">
+            <div class="card-header">
+              <p>Trials Status</p>
+            </div>
+            <div class="card-body">
+              <div id="piechartoptions"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xl-4 col-lg-4">
+          <div class="card">
+            <div class="card-header">
+              <p>Pending Trials</p>
+            </div>
+            <div class="card-body">
+              <div id="linechartoptions"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xl-4 col-lg-4">
+          <div class="card">
+            <div class="card-header">
+              <p>Approved Trials</p>
+            </div>
+            <div class="card-body">
+              <div id="linechartoptions2"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xl-4 col-lg-4">
+          <div class="card">
+            <div class="card-header">
+              <p>Contact Us</p>
+            </div>
+            <div class="card-body">
+              <a
+                href="javascript:void(0)"
+                routerLink="/authenticate/contact-us"
+              >
+                <img
+                  _ngcontent-rgv-c371=""
+                  src="assets/images/test1.jpeg"
+                  style="width: 100%; height: 230px; align-items: center"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xl-4 col-lg-4">
+          <div class="card">
+            <div class="card-header">
+              <p>About Us</p>
+            </div>
+            <div class="card-body">
+              <a routerLink="/authenticate/about-us">
+                <img
+                  _ngcontent-rgv-c371=""
+                  src="assets/images/test2.jpeg"
+                  style="width: 100%; height: 230px; align-items: center"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xl-4 col-lg-4">
+          <div class="card">
+            <div class="card-header">
+              <a routerLink="/authenticate/hierarchy">
+                <p>Hierarchy</p>
+              </a>
+            </div>
+            <div class="card-body">
+              <a routerLink="/authenticate/hierarchy">
+                <img
+                  _ngcontent-rgv-c371=""
+                  src="assets/images/test3.jpeg"
+                  style="width: 100%; height: 230px; align-items: center"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <app-page-footer></app-page-footer>
+</body>

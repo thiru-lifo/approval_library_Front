@@ -1,0 +1,116 @@
+<aside class="sidemenu "  > 
+    <ng-container >
+      <ul metis-menu class="metisul" #sidemenu>
+          <ng-container *ngFor="let module of modules;let i = index"  > 
+            <li class="event-menu {{ i==0?'active':'' }}" *ngIf="module.status==true"  >
+                  <a href="javascript:void(0)" (click)="goToPage((module.url!='' && module.url!=null?'/'+module.url:''))"  class="{{ module.url!=''?'':'has-arrow' }} {{ i==0?'active':'' }}" >{{ module.name }}</a>
+                  <ng-container *ngIf="module.components.length>0"> 
+                    <ul>
+                      <ng-container *ngFor="let component of module.components"> 
+                        <li class="" *ngIf="component.status==true">
+                            <a routerLink="{{ component.url }}" >{{ component.name }}</a>
+                        </li>
+                      </ng-container>
+                      
+                    </ul>
+                  </ng-container>
+            </li>
+          </ng-container> 
+          <!-- <li class="">
+            <a routerLink="transaction/hs-converter">HS Converter</a>
+          </li>  
+          <li class="">
+            <a routerLink="transaction/hsr-proforma">HSR Proforma</a>
+          </li>  
+          <li class="">
+            <a routerLink="transaction/inhouse-proforma-da">In-House proforma - DA</a>
+          </li>
+          <li class="">
+            <a routerLink="transaction/load-trial-proforma-da">Load Trial proforma - DA</a>
+          </li>
+          <li class="">
+            <a routerLink="transaction/inhouse-proforma-gtg">In-House proforma - GTG</a>
+          </li> 
+          <li class="">
+            <a routerLink="transaction/load-trial-proforma-gtg">Load Trial proforma - GTG</a>
+          </li> 
+          <li class="">
+            <a routerLink="transaction/pre-refit-trial">Pre-Refit Trials</a>
+          </li> 
+          <li class="">
+            <a routerLink="transaction/post-refit-trial">Post-Refit Trials</a>
+          </li> 
+          <li class="">
+            <a routerLink="transaction/eh-checks">E-H Checks</a>
+          </li>  -->    
+      </ul>
+    </ng-container>
+    <ng-container *ngIf="roleName=='gro'">
+      <ul metis-menu class="metisul">
+        <ng-container *ngFor="let module of modules;let i = index"  > 
+          <li class="event-menu {{ i==0?'active':'' }}" title="{{ module.name }}" data-placement="right" >
+            <a href="javascript:void(0);" (click)="goToPage((module.url!='' && module.url!=null?'/'+module.url:''))"  >
+              <span class="iconify"  [attr.data-icon]="module.icon" ></span>
+              <span class="menu-title">{{ module.name }}</span>
+            </a>
+          </li> 
+        </ng-container>  
+
+
+        <!-- <li class="event-menu"><a href="javascript:void(0);" routerLink="/gro/gro-referral-call-log"><span class="iconify" data-icon="ic:outline-support-agent"></span> <span class="menu-title">Call Center Referral Log </span></a></li>   
+        <li class="event-menu"><a href="javascript:void(0);" routerLink="/gro/specimen-form"><span class="iconify" data-icon="ant-design:file-outlined"></span> <span class="menu-title">Specimen Transmittal Form </span></a></li>   
+        <li class="event-menu"><a href="javascript:void(0);" routerLink="/gro/refusal-continue"><span class="iconify" data-icon="ant-design:file-text-outlined"></span> <span class="menu-title">Refusal to Continue Report </span></a></li>  
+        <li class="event-menu"><a href="javascript:void(0);"><span class="iconify" data-icon="heroicons-outline:finger-print"></span> <span class="menu-title">Biometrics Skip Dashboard </span></a></li>  
+        <li class="event-menu exit-icon"><a href="javascript:void(0);" routerLink="/gro/exit-process-report"><span class="iconify" data-icon="system-uicons:enter"></span> <span class="menu-title"> Exit Check Process Report </span></a></li> -->                      
+    </ul>
+    </ng-container>
+
+    <ng-container *ngIf="roleName=='nurse'">
+      <ul metis-menu class="metisul">
+        <li class="event-menu active"><a href="javascript:void(0);" routerLink="/nurse/dashboard-nurse"><span class="iconify" data-icon="ic:outline-dashboard"></span> <span class="menu-title">Dashboard</span></a><div class="tooltip-custom">tooltip</div></li>   
+        <li class="event-menu"><a href="javascript:void(0);" routerLink="/nurse/barcode-reprint"><span class="iconify" data-icon="bx:barcode"></span> <span class="menu-title">Bar Code Printing Request</span></a></li>   
+        <li class="event-menu"><a href="javascript:void(0);" routerLink="/nurse/sample-outgoing"><span class="iconify" data-icon="tabler:test-pipe"></span> <span class="menu-title">Sample Outgoings</span></a></li> 
+    </ul>
+    </ng-container>
+
+</aside>
+
+
+<ng-container style="display: none;">
+  <li class="event-menu">
+    <a class="has-arrow" routerLink="transaction/hs-converter">CBIU</a>
+     <ng-container> 
+        <ul>
+          <ng-container> 
+            <li class="">
+                <a href="javascript:void(0);" routerLink="/cbiu/boiler-data/">Boiler Data</a>
+            </li>
+            <li class="">
+              <a href="javascript:void(0);" routerLink="/cbiu/returns/">Returns</a>
+            </li>
+            <li class="">
+              <a href="javascript:void(0);" routerLink="/cbiu/flue-gas-analyser/">Flue Gas Analyser</a>
+            </li>
+            <li class="">
+              <a href="javascript:void(0);" routerLink="/cbiu/burner-alignment-readings/">Burner Alignment Readings</a>
+            </li>
+            <li class="">
+              <a href="javascript:void(0);" routerLink="/cbiu/blowing-arc-port/">Blowing ARC - PORT</a>
+            </li>
+            <li class="">
+              <a href="javascript:void(0);" routerLink="/cbiu/blowing-arc-stbd/">Blowing ARC - STBD</a>
+            </li>
+            <li class="">
+              <a href="javascript:void(0);" routerLink="/cbiu/economiser-operating/">Economiser Operating</a>
+            </li>
+            <li class="">
+              <a href="javascript:void(0);" routerLink="/cbiu/information-history/">Information History</a>
+            </li>
+            <li class="">
+              <a href="javascript:void(0);" routerLink="cbiu/internal-examination/"> Internal Examination</a>
+            </li>
+          </ng-container>                    
+        </ul>
+      </ng-container>
+  </li>
+</ng-container>

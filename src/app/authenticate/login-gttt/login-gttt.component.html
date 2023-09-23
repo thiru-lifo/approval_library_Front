@@ -1,0 +1,50 @@
+<section class="login-page">
+    <a class="log-home" title="Home" alt="Home" (click)="home()">
+        <span class="material-icons">home</span>
+    </a>
+	<div class="container-fluid">
+		<div class="login-cover">
+			<div class="row no-gutters d-flex align-items-center">
+				<div class="col-md-5">
+					<div class="login-box">
+						<div class="logo text-center">
+							<img src="assets/images/gttt-logo.jpg">
+							
+						</div>
+						
+						<div class="login-form" >
+							<form [formGroup]="this.loginForm" (ngSubmit)="onSubmit()" >
+						  		<div class="form-group-label">
+						  		  <mat-label>Username <b class="star">*</b></mat-label>
+								  <mat-form-field appearance="legacy">
+								    <input matInput placeholder="" formControlName="username" autocomplete="off">
+								    <mat-error *ngIf="Error('username','required')">Username is required</mat-error>
+								  </mat-form-field>
+								</div>
+								<div class="form-group-label">
+								  <mat-label>Password <b class="star">*</b></mat-label>
+								  <mat-form-field appearance="legacy">
+								    <input matInput placeholder="" type="password" formControlName="password">
+								    <mat-error *ngIf="Error('password','required')">Password is required</mat-error>
+								  </mat-form-field>
+								</div>
+								<div class="remember-link">
+									<mat-checkbox class="example-margin" id="exampleCheck1" formControlName="remember" (change)="rememberMe($event)">Remember me</mat-checkbox>
+									<a href="javascript:void(0);" (click)="Forgot()" class="float-right">Forgot Password?</a>
+								</div>
+								<div class="mt-2">
+									<button type="submit" [disabled]="signinDisable" mat-raised-button color="primary"  class="w-100" >{{ loginButton }}</button>
+								</div>
+							</form>
+					  	</div>
+					</div>
+				</div>
+				<div class="col-md-7 col-12">
+					<div class="login-leftbg" style="background: url(assets/images/loginbg.jpg) no-repeat center/cover #651137;">
+						<!-- <img src="assets/images/login-image.png" class="img-fluid" alt="" title=""> -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

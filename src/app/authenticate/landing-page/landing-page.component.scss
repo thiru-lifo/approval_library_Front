@@ -1,0 +1,731 @@
+/*Login*/
+a{text-decoration: none;}
+.login-page{padding: 0 50px; position: absolute; transform: translate(0,-50%); top: 50%; left: 0; right: 0;}
+/*.login-page{background: url(../../../assets/images/loginbg.jpg) no-repeat; background-size: cover; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover;}*/
+
+.logo{margin-bottom: 30px;}
+.logo img{max-width: 125px;}
+.logo h1{font-size: 28px; font-weight: 500; color: #332F31; margin: 15px 0 20px;}
+.w-100{width: 100%;}
+.image-right{padding-left: 50px;}
+
+.login-leftbg{background: #0B014A; padding: 100px 50px 80px 50px; text-align: center; position: relative; min-height:560px; border-radius: 16px; overflow: hidden;}
+.login-leftbg img{width: 50%;}
+.login-box{box-shadow: 0px 16px 32px rgba(31, 28, 29, 0.03), 0px 6px 24px rgba(31, 28, 29, 0.05);
+border-radius: 16px; background: #fff; padding: 24px 80px 48px; margin-left: -50px;}
+.login-box mat-label{font-size: 16px; font-weight: 600; color: #736D70; margin-bottom: 10px; display: block;}
+.login-box mat-label .star{color: #f01414;}
+
+.login-form button{padding: 8px 10px; font-size: 18px; box-shadow: none; border-radius: 50px;}
+.mat-raised-button.mat-primary{background: #0B014A; border-radius: 50px;}
+.login-form p{margin-bottom: 0;}
+.remember-link mat-checkbox, .remember-link a{font-size: 14px; color: #736D70;}
+.remember-link a:hover, .remember-link a:focus{color: #736D70;}
+/*.landing-box h1 {
+  background: url(../../../assets/images/gold-text-bg1.jpg);
+    background-size: auto;
+    background-clip: border-box;
+  background-size: cover;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 45px; margin: 30px 0; font-weight: 600;
+}*/
+
+.landing-box h1 {
+  background-image: linear-gradient( to right, #e2b421 0, #ffd600 22%, #f6e27a 45%, #e2b421 50%, #f6e27a 55%, #ffd600 78%, #e2b421 100% );
+    color: transparent !important;
+    -webkit-background-clip: text;
+    font-size: 40px; margin: 30px 0 50px; font-weight: 600;
+}
+
+
+
+// /*Landing Dashboard */
+
+// .planet-fixed {
+//   position: fixed;
+//   top: 43%;
+//   left: 50%;
+//   transform: translate(-50%, -42%);
+// }
+
+// .planet-cover {
+//   padding: 25px;
+//   position: relative;
+//   height: 100vh;
+// }
+
+// .planet-cover .container {
+//   position: relative;
+// }
+
+// .planet-cover .main-heading {
+//   font-size: 35px;
+//   font-weight: 600;
+//   line-height: 50px;
+//   color: #ffc506;
+//   font-family: 'Roboto', sans-serif;
+//   text-align: center;
+// }
+
+// .plant-round1 {
+//   width: 500px;
+//   height: 500px;
+//   border-radius: 50%;
+//   position: relative;
+//   margin: 0 auto;
+
+//   /* border: 2px solid #fff; */
+
+// }
+
+// .planet-center {
+//   width: 180px;
+//   height: 180px;
+//   border-radius: 50%;
+//   border: 1px solid rgba(255, 255, 255, 0.3);
+//   background: rgba(255, 255, 255, 0.2);
+//   position: relative;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+// }
+
+// .planet-center img {
+//   width: 150px;
+// }
+
+// .plant-round1 .unit1 {
+//   width: 120px;
+//   height: 120px;
+//   border-radius: 50%;
+//   background: #fff;
+//   position: absolute;
+//   top: 10px;
+//   left: 30px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   flex-direction: column;
+//   z-index: 11;
+//   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+// }
+
+// .plant-round1 .rounded {
+//   text-align: center;
+// }
+
+// .plant-round1 .unit1 .rounded {
+//   position: relative;
+// }
+
+// .plant-round1 .unit1 img {
+//   width: 55px;
+// }
+
+// .plant-round1 .unit1 p {
+//   font-size: 16px;
+//   font-weight: 600;
+//   margin: 0;
+//   color: #3926b1;
+// }
+
+// .plant-round1 .unit1.unit2 {
+//   right: 30px;
+//   left: inherit;
+// }
+
+// .plant-round1 .unit1.unit3 {
+//   left: -20px;
+//   top: inherit;
+//   bottom: 60px;
+// }
+
+// .plant-round1 .unit1.unit4 {
+//   left: -50px;
+//   top: 160px;
+// }
+
+// .plant-round1 .unit1.unit5 {
+//   right: -50px;
+//   left: inherit;
+//   top: 160px;
+// }
+
+// .plant-round1 .unit1.unit6 {
+//   right: 105px;
+//   left: inherit;
+//   top: inherit;
+//   bottom: -30px;
+// }
+
+// // .plant-round1 .unit1.unit7 {
+// //   left: 200px;
+// //   top: -50px;
+// // }
+
+// .plant-round1 .unit1.unit7 {
+//   left: 110px;
+//   top: inherit;
+//   bottom: -30px;
+// }
+
+// .plant-round1 .unit1.unit8 {
+//   right: -20px;
+//   left: inherit;
+//   top: 320px;
+// }
+
+
+
+// .unit-rounded .satellite-unit {
+//   background: #604BE3;
+//   width: 170px;
+//   height: 98px;
+//   border-radius: 8px;
+//   padding: 10px 10px 5px;
+//   position: absolute;
+//   z-index: 1;
+//   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+// }
+
+// .unit-rounded .satellite-unit ul {
+//   padding: 0;
+//   margin: 0;
+// }
+
+// .unit-rounded .satellite-unit ul li {
+//   list-style: none;
+//   display: block;
+//   margin: 0 0 2px ;
+//   font-size: 12px;
+//   font-weight: 600;
+//   color: #fff;
+//   z-index: 9;
+//   cursor: pointer;
+// }
+
+// .unit-rounded .satellite-unit ul li a {
+//   color: #fff;
+//   cursor: pointer;
+// }
+
+
+
+// .planet-cover .unit-rounded {
+//   position: relative;
+//   display: contents;
+// }
+
+// .unit-rounded.round1 .satellite-unit {
+//   top: 19px;
+//   left: -70px;
+// }
+
+// .unit-rounded.round8 .satellite-unit {
+//   bottom: 70px;
+//   right: -113px;
+//   text-align: right;
+//   padding: 10px 30px 5px 80px !important;
+// }
+
+// .unit-rounded.round5 .satellite-unit {
+//   top: 172px;
+//   right: -145px;
+//   padding: 10px 30px 5px 65px !important;
+// }
+
+// .unit-rounded.round2 .satellite-unit {
+//   top: 20px;
+//   right: -68px;
+//   padding: 10px 30px 5px 55px !important;
+// }
+
+// .unit-rounded.round6 .satellite-unit {
+//   bottom: -70px;
+//   left: 340px;
+//   padding: 10px 30px 5px 60px !important;
+// }
+
+// .unit-rounded.round7 .satellite-unit {
+//   bottom: -70px;
+//   left: 0;
+//   padding: 10px 30px 5px 15px !important;
+// }
+
+// .unit-rounded.round3 .satellite-unit {
+//   bottom: 71px;
+//   left: -140px;
+//   padding: 10px 30px 5px 15px !important;
+// }
+
+// .unit-rounded.round4 .satellite-unit {
+//   bottom: 231px;
+//   left: -150px;
+//   padding: 10px 30px 5px 15px !important;
+// }
+
+// // .unit-rounded.round6 .satellite-unit {
+// //   top: -90px;
+// //   left: 280px;
+// //   padding: 10px 30px 5px 50px !important;
+// // }
+
+
+
+// .planet-center .planet-line {
+//   width: 1px;
+//   height: 100px;
+//   background: rgba(255, 255, 255, 0.5);
+//   position: absolute;
+// }
+
+// .planet-center .planet-line::before {
+//   position: absolute;
+//   bottom: -3px;
+//   left: -2px;
+//   width: 5px;
+//   height: 5px;
+//   background: rgba(255, 255, 255, 0.5);
+//   border-radius: 50%;
+//   z-index: 9;
+//   content: "";
+// }
+
+// .planet-center .planet-line.line7::before,
+// .planet-center .planet-line.line8::before,
+// .planet-center .planet-line.line9::before,
+// .planet-center .planet-line.line1::before {
+//   top: -3px;
+//   bottom: inherit;
+// }
+
+// .planet-center .planet-line.line1 {
+//   position: absolute;
+//   top: -70px;
+//   left: 0;
+//   transform: rotate(137deg);
+// }
+
+// .planet-center .planet-line.line2 {
+//   position: absolute;
+//   top: -50px;
+//   left: 98px;
+//   transform: inherit;
+// }
+
+// .planet-center .planet-line.line3 {
+//   position: absolute;
+//   top: -70px;
+//   left: 180px;
+//   transform: rotate(42deg);
+// }
+
+// .planet-center .planet-line.line4 {
+//   position: absolute;
+//   top: 29px;
+//   left: 228px;
+//   transform: rotate(90deg);
+// }
+
+// .planet-center .planet-line.line5 {
+//   position: absolute;
+//   top: 121px;
+//   left: 205px;
+//   transform: rotate(127deg);
+// }
+
+// .planet-center .planet-line.line6 {
+//   position: absolute;
+//   top: 167px;
+//   left: 145px;
+//   transform: rotate(151deg);
+// }
+
+// .planet-center .planet-line.line7 {
+//   position: absolute;
+//   bottom: -95px;
+//   left: 45px;
+//   transform: rotate(20deg);
+// }
+
+// .planet-center .planet-line.line8 {
+//   position: absolute;
+//   bottom: -36px;
+//   left: -31px;
+//   transform: rotate(60deg);
+// }
+
+// .planet-center .planet-line.line9 {
+//   position: absolute;
+//   bottom: 50px;
+//   left: -52px;
+//   transform: rotate(90deg);
+// }
+
+
+
+// .unit-rounded.round2 .satellite-unit,
+// .unit-rounded.round5 .satellite-unit,
+// .unit-rounded.round6 .satellite-unit,
+// .unit-rounded.round9 .satellite-unit {
+
+//   text-align: right;
+//   padding: 10px 10px 5px 55px !important;
+
+// }
+
+
+
+// /* End */
+
+// body.dashboard {padding-top: 0 !important;}
+
+/*Landing Dashboard */
+.planet-fixed {
+  position: fixed;
+  top: 48.5%;
+  left: 50%;
+  transform: translate(-50%, -42%);
+}
+
+.planet-cover {
+  padding: 5px 0;
+  position: relative;
+  height: 100vh;
+  /* background: url(../images/dashboard.png) no-repeat center center; */
+}
+
+.planet-cover .container {
+  position: relative;
+}
+
+.planet-cover .main-heading {
+  font-size: 35px;
+  font-weight: 600;
+  line-height: 50px;
+  color: #ffc506;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+}
+
+.plant-round1 {
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  position: relative;
+  margin: 0 auto;
+
+  /* border: 2px solid #fff; */
+
+}
+
+.planet-center {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.planet-center img {
+  width: 150px;
+}
+
+.plant-round1 .unit1 {
+  width: 150px;
+  height: 80px;
+  border-radius: 100px / 50px;
+  background: #fff;
+  position: absolute;
+  top: 80px;
+  left: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 11;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.plant-round1 .rounded {
+  text-align: center;
+}
+
+.plant-round1 .unit1 .rounded {
+  position: relative;
+}
+
+.plant-round1 .unit1 img {
+  width: 40px;
+}
+
+.plant-round1 .unit1 p {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: #3926b1;
+}
+
+.plant-round1 .unit1.unit2 {
+  right: 7px;
+  left: inherit;
+}
+
+.plant-round1 .unit1.unit3 {
+  left: -8px;
+  top: inherit;
+  bottom: 129px;
+}
+
+.plant-round1 .unit1.unit4 {
+  left: -50px;
+  top: 190px;
+}
+
+.plant-round1 .unit1.unit5 {
+  right: -50px;
+  left: inherit;
+  top: 190px;
+}
+
+.plant-round1 .unit1.unit6 {
+  right: 86px;
+  left: inherit;
+  top: inherit;
+  bottom: 22px;
+}
+
+.plant-round1 .unit1.unit7 {
+  left: 83px;
+  top: inherit;
+  bottom: 22px;
+}
+
+.plant-round1 .unit1.unit8 {
+  right: -4px;
+  left: inherit;
+  top: inherit;
+  bottom: 129px;
+}
+
+.plant-round1 .unit1.unit9 {
+  left: 180px;
+  top: 18px;
+}
+
+
+.unit-rounded .satellite-unit {
+  background: #604BE3;
+  width: 170px;
+  height: 98px;
+  border-radius: 8px;
+  padding: 10px 10px 5px;
+  position: absolute;
+  z-index: 1;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.unit-rounded .satellite-unit ul {
+  padding: 0;
+  margin: 0;
+}
+
+.unit-rounded .satellite-unit ul li {
+  list-style: none;
+  display: block;
+  margin: 0 0 2px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  z-index: 9;
+  cursor: pointer;
+}
+
+.unit-rounded .satellite-unit ul li a {
+  color: #fff;
+  cursor: pointer;
+}
+
+.planet-cover .unit-rounded {
+  position: relative;
+  display: contents;
+}
+
+.unit-rounded.round1 .satellite-unit {
+  top: 72px;
+  left: -70px;
+}
+
+.unit-rounded.round8 .satellite-unit {
+  bottom: 101px;
+  right: -113px;
+  text-align: right;
+  padding: 10px 30px 5px 80px !important;
+}
+
+.unit-rounded.round5 .satellite-unit {
+  bottom: 220px;
+  right: -145px;
+  padding: 10px 30px 5px 65px !important;
+}
+
+.unit-rounded.round2 .satellite-unit {
+  top: 72px;
+  right: -85px;
+  padding: 10px 30px 5px 55px !important;
+}
+
+.unit-rounded.round6 .satellite-unit {
+  bottom: -20px;
+  left: 340px;
+  padding: 10px 30px 5px 60px !important;
+}
+
+.unit-rounded.round7 .satellite-unit {
+  bottom: -20px;
+  left: -20px;
+  padding: 10px 30px 5px 15px !important;
+}
+
+.unit-rounded.round3 .satellite-unit {
+  bottom: 101px;
+  left: -140px;
+  padding: 10px 30px 5px 15px !important;
+}
+
+.unit-rounded.round4 .satellite-unit {
+  bottom: 220px;
+  left: -150px;
+  padding: 10px 30px 5px 15px !important;
+}
+
+.unit-rounded.round9 .satellite-unit {
+  top: -42px;
+  left: 252px;
+  padding: 10px 30px 5px 50px !important;
+}
+
+.unit-rounded.round9 .satellite-unit {
+  text-align: right;
+}
+
+.planet-center .planet-line {
+  width: 1px;
+  height: 66px;
+  background: rgba(255, 255, 255, 0.5);
+  position: absolute;
+}
+
+.planet-center .planet-line::before {
+  position: absolute;
+  bottom: -3px;
+  left: -2px;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  z-index: 9;
+  content: "";
+}
+
+.planet-center .planet-line.line7::before,
+.planet-center .planet-line.line8::before,
+.planet-center .planet-line.line9::before,
+.planet-center .planet-line.line1::before {
+  top: -3px;
+  bottom: inherit;
+}
+
+.planet-center .planet-line.line1 {
+  position: absolute;
+  top: -30px;
+  left: 0;
+  transform: rotate(137deg);
+}
+
+.planet-center .planet-line.line2 {
+  position: absolute;
+  top: -34px;
+  left: 87px;
+  transform: inherit;
+}
+
+.planet-center .planet-line.line3 {
+  position: absolute;
+  top: -30px;
+  left: 177px;
+  transform: rotate(42deg);
+}
+
+.planet-center .planet-line.line4 {
+  position: absolute;
+  top: 34px;
+  left: 209px;
+  transform: rotate(90deg);
+}
+
+.planet-center .planet-line.line5 {
+  position: absolute;
+  top: 101px;
+  left: 205px;
+  transform: rotate(127deg);
+}
+
+.planet-center .planet-line.line6 {
+  position: absolute;
+  bottom: -72px;
+  left: 157px;
+  transform: rotate(151deg);
+  height: 90px;
+}
+
+.planet-center .planet-line.line7 {
+  position: absolute;
+  bottom: -72px;
+  left: 20px;
+  transform: rotate(27deg);
+  height: 90px;
+}
+
+.planet-center .planet-line.line8 {
+  position: absolute;
+  top: 98px;
+  left: -28px;
+  transform: rotate(60deg);
+}
+
+.planet-center .planet-line.line9 {
+  position: absolute;
+  top: 34px;
+  left: -32px;
+  transform: rotate(90deg);
+}
+
+.unit-rounded.round2 .satellite-unit,
+.unit-rounded.round5 .satellite-unit,
+.unit-rounded.round6 .satellite-unit {
+
+  text-align: right;
+  padding: 10px 10px 5px 55px !important;
+
+}
+
+/* End */
+
+body.dashboard {
+  padding-top: 0 !important;
+}

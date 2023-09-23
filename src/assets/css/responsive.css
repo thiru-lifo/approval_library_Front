@@ -1,0 +1,22 @@
+@media (max-width: 767px) {	
+	.login-page, .login-page .container-fluid{padding: 0 !important;}
+	.login-leftbg{padding: 95px 20px 20px 20px !important;}
+	.login-leftbg img{width: 40% !important;}
+	.login-box{padding: 20px !important; margin-left: 0 !important;}
+}
+
+@media (min-width: 768px) and (max-width: 991px){
+
+	.login-box{padding: 20px !important;}
+	
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+
+	
+}
+
+@media (min-width: 1400px) and (max-width: 1920px) {
+
+	
+}

@@ -1,0 +1,87 @@
+<app-page-header></app-page-header>
+<div class="mt-5">
+<img class="mt-4" src="assets/images/contactus1.jpg" style="height:400px ; width: 100%;" alt="this is map">
+</div>
+<section class="body-card" style="margin-top: 0px;" >
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7">
+        <h2>Contact us</h2>
+        <form [formGroup]="this.editForm" (ngSubmit)="onSubmit()">
+
+          <label for="name">Trail Unit</label>
+              <input style="background-color: #8080801c;"
+                type="text"
+                id="trial_unit"
+                formControlName="trial_unit"
+                value="ETMA"
+                Readonly
+                placeholder="N/A"
+                
+              />
+
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            placeholder="Your name.."
+          />
+
+          <label for="email">Email ID</label>
+          <input
+            type="text"
+            id="email"
+            formControlName="email"
+            placeholder="Your last name.."
+          />
+
+          <label for="mobile">Personal Number</label>
+          <input
+            type="text"
+            id="mobile"
+            formControlName="mobile"
+            placeholder="Your last name.."
+          />
+
+          <label for="message">Message</label>
+          <textarea
+            id="message"
+            formControlName="message"
+            placeholder="Write something.."
+            style="height: 200px"
+          ></textarea>
+
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+      <div class="col-md-5">
+        <div class="footer-box">
+          <!-- <h4>Details</h4> -->
+          <div class="footer-content">
+            <ul>
+              <h3><b>Address</b></h3>
+              K.Kamaraj Road, Near & Udyog Bhavan Metro, New, Vijay Chowk Area, Central Secretariat, <br />
+              New Delhi, Delhi 110011
+
+
+                  <br />
+                  <br />
+              <h5><b>Email :</b></h5>Trialagencymodule@indiannavy.mil
+
+              <br />
+                  <br />
+              <h5><b>Phone :</b></h5> +91 3075
+
+              <!-- <li><a href="javascript:;">Phone: +91 3075</a></li> -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container" >
+  <img src="assets/images/worldmap.png" style="height:400px ; width: 100%;" alt="this is map">
+  </div>
+</section>
+<app-page-footer></app-page-footer>

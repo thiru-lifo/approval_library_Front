@@ -1,0 +1,1014 @@
+<section class="body-card">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-md-6">
+                <h3>Trials</h3>
+              </div>
+              <div class="col-md-6">
+                <div class="text-right">
+                  <a
+                    href="#"
+                    data-toggle="modal"
+                    data-target="#crud-countries"
+                    (click)="create()"
+                    class="btn btn-primary btn-round-sm"
+                    *ngIf="permission.add == true"
+                    >Create</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container table-options">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-paginator
+                  [length]="totalLength"
+                  [pageSize]="10"
+                  (page)="pageEvent = $event"
+                  (page)="getTrials()"
+                  [pageSizeOptions]="[10, 20, 30, 50, 100]"
+                  aria-label="Select page"
+                >
+                </mat-paginator>
+              </div>
+              <div class="col-md-6">
+                <div appearance="standard">
+                  <!-- <mat-label>Search Only Trial Number</mat-label> -->
+                  <input
+                    matInput
+                    (keyup)="applyFilter($event)"
+                    placeholder="Search your text here"
+                    class="search-mat-table"
+                    #input
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-body form-style-md form-style-font linux">
+            <div class="container-fluid">
+              <form [formGroup]="searchForm">
+                <div class="form-row form-style-md">
+                  <div class="col-md-2">
+                    <div class="matt-group">
+                      <mat-label
+                        >Select Trial Unit <b class="star">*</b></mat-label
+                      >
+                      <mat-form-field appearance="legacy">
+                        <mat-select
+                          formControlName="trail_unit"
+                          placeholder="Select Trial Unit"
+                          (selectionChange)="getSatelliteUnits($event.value)"
+                        >
+                          <mat-option>None</mat-option>
+                          <mat-option
+                            *ngFor="let trialUnit of trialUnits"
+                            [value]="trialUnit.id"
+                            >{{ trialUnit.name }}</mat-option
+                          >
+                        </mat-select>
+                        <!-- <mat-error *ngIf="Error('trial_unit','required')">Select Trial Unit</mat-error> -->
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="matt-group">
+                      <mat-label
+                        >Select Satellite Unit <b class="star">*</b></mat-label
+                      >
+                      <mat-form-field appearance="legacy">
+                        <mat-select
+                          formControlName="satellite_unit"
+                          placeholder="Select Satellite Unit"
+                          (selectionChange)="
+                            getShips(searchForm.value.trail_unit, $event.value)
+                          "
+                        >
+                          <mat-option>None</mat-option>
+                          <mat-option
+                            *ngFor="let satelliteUnit of satelliteUnits"
+                            [value]="satelliteUnit.id"
+                            >{{ satelliteUnit.name }}</mat-option
+                          >
+                        </mat-select>
+                        <!-- <mat-error *ngIf="Error('satellite_unit','required')">Select Satellite Unit</mat-error> -->
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="matt-group">
+                      <mat-label>Select Ship <b class="star">*</b></mat-label>
+                      <mat-form-field appearance="legacy">
+                        <mat-select
+                          formControlName="ship"
+                          placeholder="Select Ship"
+                          (selectionChange)="
+                            getSections(
+                              searchForm.value.trail_unit,
+                              searchForm.value.satellite_unit,
+                              $event.value
+                            )
+                          "
+                        >
+                          <mat-option>None</mat-option>
+                          <mat-option
+                            *ngFor="let ship of ships"
+                            [value]="ship.id"
+                            >{{ ship.name }}</mat-option
+                          >
+                        </mat-select>
+                        <!-- <mat-error *ngIf="Error('ship','required')">Select Ship</mat-error> -->
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="matt-group">
+                      <mat-label
+                        >Select Section <b class="star">*</b></mat-label
+                      >
+                      <mat-form-field appearance="legacy">
+                        <mat-select
+                          formControlName="section"
+                          placeholder="Select Section"
+                        >
+                          <mat-option>None</mat-option>
+                          <mat-option
+                            *ngFor="let section of sections"
+                            [value]="section.id"
+                            >{{ section.name }}</mat-option
+                          >
+                        </mat-select>
+                        <!-- <mat-error *ngIf="Error('section','required')">Select Section</mat-error> -->
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="matt-group">
+                      <mat-label
+                        >Select Trial Type <b class="star">*</b></mat-label
+                      >
+                      <mat-form-field appearance="legacy">
+                        <mat-select
+                          formControlName="trail_type"
+                          placeholder="Select Trial Type"
+                        >
+                          <mat-option>None</mat-option>
+                          <mat-option
+                            *ngFor="let trial_type of trial_types"
+                            [value]="trial_type.id"
+                            >{{ trial_type.name }}</mat-option
+                          >
+                        </mat-select>
+                        <!-- <mat-error *ngIf="Error('trial_type','required')">Select trial Type</mat-error> -->
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-9">
+                  <div class="button-group-lg button-group-md mt-4">
+                    <a
+                      href="javascript:void(0);"
+                      class="btn btn-outline-primary btn-lg"
+                      (click)="clear()"
+                      >Clear</a
+                    >
+                    <a
+                      href="javascript:void(0);"
+                      class="btn btn-primary btn-lg"
+                      type="submit"
+                      (click)="search()"
+                      >Search</a
+                    >
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="trial_number">
+              <th mat-header-cell *matHeaderCellDef><b> Trial No </b></th>
+              <td mat-cell *matCellDef="let country">
+                {{ country.trial_number }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="trial_unit">
+              <th mat-header-cell *matHeaderCellDef><b> Trial Unit </b></th>
+              <td mat-cell *matCellDef="let country">
+                {{ country.trial_unit.name }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="satellite_unit">
+              <th mat-header-cell *matHeaderCellDef><b> Satellite Unit </b></th>
+              <td mat-cell *matCellDef="let country">
+                {{ country.satellite_unit.name }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="ship">
+              <th mat-header-cell *matHeaderCellDef><b> Ship </b></th>
+              <td mat-cell *matCellDef="let country">
+                {{ country.ship.name }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="section">
+              <th mat-header-cell *matHeaderCellDef><b> Section </b></th>
+              <td mat-cell *matCellDef="let country">
+                {{ country.section.name }}
+              </td>
+            </ng-container>
+            <!-- <ng-container matColumnDef="equipment">
+                     <th mat-header-cell *matHeaderCellDef><b> Equipment </b></th>
+                     <td mat-cell *matCellDef="let country"> {{country.equipment.name}} </td>
+                  </ng-container> -->
+            <ng-container matColumnDef="trial_type">
+              <th mat-header-cell *matHeaderCellDef><b> Trial Type </b></th>
+              <td mat-cell *matCellDef="let country">
+                {{ country.trial_type.name }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="requested_by">
+              <th mat-header-cell *matHeaderCellDef><b> Requested By </b></th>
+              <td mat-cell *matCellDef="let country">
+                {{
+                  country.created_by.first_name +
+                    " " +
+                    country.created_by.last_name
+                }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="requested_on">
+              <th mat-header-cell *matHeaderCellDef><b> Requested On </b></th>
+              <td mat-cell *matCellDef="let country">
+                {{ moment(country.created_on).format("DD-MM-YYYY hh:mm A") }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef><b> Status </b></th>
+              <td mat-cell *matCellDef="let country">
+                <a
+                  href="javascript:void(0)"
+                  (click)="openCurrentStatus(country)"
+                  title="Approval Status"
+                  class="edit-icon text-primary"
+                  style="padding: 5px; background: #dc3545"
+                  ><span class="material-icons-outlined" style="color: #fff"
+                    >info</span
+                  ></a
+                >
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="view">
+              <th class="text-center" mat-header-cell *matHeaderCellDef>
+                <ng-container *ngIf="permission.view == true"
+                  ><b>View</b></ng-container
+                >
+              </th>
+              <td class="text-center" mat-cell *matCellDef="let country">
+                <a
+                  href="javascript:void(0)"
+                  class="edit-icon text-primary"
+                  *ngIf="permission.view == true"
+                  (click)="showTrialForm(country)"
+                  ><span class="material-icons-outlined"
+                    >remove_red_eye</span
+                  ></a
+                >
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="download">
+              <th class="text-center" mat-header-cell *matHeaderCellDef>
+                <ng-container *ngIf="permission.download == true"
+                  ><b>Download</b></ng-container
+                >
+              </th>
+              <td class="text-center" mat-cell *matCellDef="let country">
+                <a
+                  href="javascript:void(0)"
+                  class="edit-icon text-primary"
+                  *ngIf="permission.download == true"
+                  (click)="downloadTrialForm(country)"
+                  ><span class="material-icons-outlined"
+                    >sim_card_download</span
+                  ></a
+                >
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="edit">
+              <th class="text-center" mat-header-cell *matHeaderCellDef>
+                <ng-container *ngIf="permission.edit == true"
+                  ><b>Edit</b></ng-container
+                >
+              </th>
+              <td class="text-center" mat-cell *matCellDef="let country">
+                <a
+                  href="#"
+                  data-toggle="modal"
+                  data-target="#crud-countries"
+                  class="edit-icon text-primary"
+                  (click)="editOption(country)"
+                  *ngIf="permission.edit == true"
+                  ><span class="material-icons-outlined">edit</span></a
+                >
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="delete">
+              <th class="text-center" mat-header-cell *matHeaderCellDef>
+                <ng-container *ngIf="permission.delete == true"
+                  ><b>Delete</b></ng-container
+                >
+              </th>
+              <td class="text-center" mat-cell *matCellDef="let country">
+                <a
+                  href="javascript:void(0)"
+                  class="edit-icon text-danger"
+                  (click)="onDelete(country.id)"
+                  *ngIf="permission.delete == true"
+                  ><span class="material-icons-outlined">delete</span></a
+                >
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="noData">
+              <th
+                mat-footer-cell
+                *matFooterCellDef
+                [attr.colspan]="displayedColumns.length"
+                class="norecord"
+              >
+                No Records Found!
+              </th>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <ng-container *ngIf="countryList.length > 0">
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </ng-container>
+            <tr
+              mat-footer-row
+              *matFooterRowDef="['noData']"
+              [hidden]="dataSource && dataSource.data.length > 0"
+            ></tr>
+            <tr class="mat-row" *matNoDataRow>
+              <td *ngIf="filterValue" class="norecord" colspan="4">
+                <b>No data matching with "{{ input.value }}"</b>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- modal -->
+<div
+  class="modal fade master-modal-style"
+  id="crud-countries"
+  data-keyboard="false"
+  data-backdrop="static"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ crudName }} Trial</h5>
+      </div>
+      <div class="modal-body form-style-md form-style-font linux">
+        <div
+          id="hide_alert"
+          class="alert alert-danger form-error-message my-4"
+          *ngIf="error_msg == true"
+        >
+          {{ ErrorMsg }}
+        </div>
+        <form [formGroup]="this.editForm" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <div class="col-md-3">
+              <div class="matt-group">
+                <mat-label>Select Trial Unit <b class="star">*</b></mat-label>
+                <mat-form-field appearance="legacy">
+                  <mat-select
+                    formControlName="trial_unit"
+                    (selectionChange)="getSatelliteUnits($event.value)"
+                  >
+                    <mat-option>None</mat-option>
+                    <mat-option
+                      *ngFor="let trialUnit of trialUnits"
+                      [value]="trialUnit.id"
+                      >{{ trialUnit.name }}</mat-option
+                    >
+                  </mat-select>
+                  <mat-error *ngIf="Error('trial_unit', 'required')"
+                    >Select Trial Unit</mat-error
+                  >
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="matt-group">
+                <mat-label
+                  >Select Satellite Unit <b class="star">*</b></mat-label
+                >
+                <mat-form-field appearance="legacy">
+                  <mat-select
+                    formControlName="satellite_unit"
+                    (selectionChange)="
+                      getShips(editForm.value.trial_unit, $event.value)
+                    "
+                  >
+                    <mat-option>None</mat-option>
+                    <mat-option
+                      *ngFor="let satelliteUnit of satelliteUnits"
+                      [value]="satelliteUnit.id"
+                      >{{ satelliteUnit.name }}</mat-option
+                    >
+                  </mat-select>
+                  <mat-error *ngIf="Error('satellite_unit', 'required')"
+                    >Select Satellite Unit</mat-error
+                  >
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="matt-group">
+                <mat-label>Select Ship <b class="star">*</b></mat-label>
+                <mat-form-field appearance="legacy">
+                  <mat-select
+                    formControlName="ship"
+                    (selectionChange)="
+                      getSections(
+                        editForm.value.trial_unit,
+                        editForm.value.satellite_unit,
+                        $event.value
+                      )
+                    "
+                  >
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let ship of ships" [value]="ship.id">{{
+                      ship.name
+                    }}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="Error('ship', 'required')"
+                    >Select Ship</mat-error
+                  >
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="matt-group">
+                <mat-label>Select Section <b class="star">*</b></mat-label>
+                <mat-form-field appearance="legacy">
+                  <mat-select
+                    formControlName="section"
+                    (selectionChange)="
+                      getEquipments(
+                        editForm.value.trial_unit,
+                        editForm.value.satellite_unit,
+                        editForm.value.ship,
+                        $event.value
+                      )
+                    "
+                  >
+                    <mat-option>None</mat-option>
+                    <mat-option
+                      *ngFor="let section of sections"
+                      [value]="section.id"
+                      >{{ section.name }}</mat-option
+                    >
+                  </mat-select>
+                  <mat-error *ngIf="Error('section', 'required')"
+                    >Select Section</mat-error
+                  >
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="matt-group">
+                <mat-label>Select Equipment <b class="star">*</b></mat-label>
+                <mat-form-field appearance="legacy">
+                  <mat-select formControlName="equipment">
+                    <mat-option>None</mat-option>
+                    <mat-option
+                      *ngFor="let equipment of equipments"
+                      [value]="equipment.id"
+                      >{{ equipment.name }}</mat-option
+                    >
+                  </mat-select>
+                  <mat-error *ngIf="Error('equipment', 'required')"
+                    >Select Equipment</mat-error
+                  >
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="matt-group">
+                <mat-label>Select Trial Type <b class="star">*</b></mat-label>
+                <mat-form-field appearance="legacy">
+                  <mat-select formControlName="trial_type">
+                    <mat-option>None</mat-option>
+                    <mat-option
+                      *ngFor="let trial_type of trial_types"
+                      [value]="trial_type.id"
+                      >{{ trial_type.name }}</mat-option
+                    >
+                  </mat-select>
+                  <mat-error *ngIf="Error('trial_type', 'required')"
+                    >Select Equipment</mat-error
+                  >
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="form-row button-group-lg button-auto mt-2">
+            <div class="col-md-6 col-6">
+              <a
+                href="javascript:void(0)"
+                class="btn btn-primary w-100"
+                (click)="showTrialForm()"
+                *ngIf="crudName == 'View'"
+                >View</a
+              >
+              <button
+                type="submit"
+                class="btn btn-primary w-100"
+                *ngIf="!isReadonly"
+              >
+                {{ crudName }}
+              </button>
+            </div>
+            <div class="col-md-6 col-6">
+              <button
+                type="button"
+                class="btn btn-outline-primary w-100"
+                #closebutton
+                data-dismiss="modal"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade master-modal-style"
+  id="approval-modal"
+  data-keyboard="false"
+  data-backdrop="static"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Trial Approval</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body form-style-md form-style-font linux">
+        <form
+          [formGroup]="this.approvalForm"
+          id="approvalForm"
+          (ngSubmit)="onApprovalSubmit()"
+        >
+          <div class="form-row">
+            <div class="col-md-12">
+              <div class="matt-group">
+                <mat-label>Comments <b class="star">*</b></mat-label>
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <textarea
+                    matInput
+                    rows="8"
+                    formControlName="comments"
+                  ></textarea>
+                  <mat-error *ngIf="ErrorApproval('comments', 'required')"
+                    >Enter comments</mat-error
+                  >
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="form-row button-group-lg button-auto mt-2">
+            <div class="col-md-6 col-6">
+              <button type="submit" id="approvalSubmit" hidden>SUBMIT</button>
+              <button
+                type="button"
+                class="btn btn-success w-100"
+                (click)="onApproval()"
+              >
+                <span class="material-icons-outlined">check_circle</span>
+                APPROVE
+              </button>
+            </div>
+            <div class="col-md-6 col-6">
+              <button
+                type="button"
+                class="btn btn-danger w-100"
+                (click)="onReject()"
+              >
+                <span class="material-icons-outlined">cancel</span> REJECT
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade master-modal-style"
+  id="approval-history"
+  data-keyboard="false"
+  data-backdrop="static"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Trial Approval History
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body form-style-md form-style-font linux">
+        <div class="form-row">
+          <div class="col-md-12">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Trial No.</th>
+                  <th>Level</th>
+                  <th>Approval Status</th>
+                  <th>Approved Date & Time</th>
+                  <th>Approved Role</th>
+                  <th>Approved By</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngIf="approvalHistory">
+                  <tr *ngFor="let approval of approvalHistory">
+                    <td>{{ approval.trial.trial_number }}</td>
+                    <td>{{ approval.approved_level }}</td>
+                    <td>
+                      <label
+                        class="badge bg-{{
+                          approval.status == 2 ? 'danger' : 'success'
+                        }}"
+                        >{{
+                          approval.status == "1" ? "Approved" : "Rejected"
+                        }}</label
+                      >
+                    </td>
+                    <td>
+                      {{
+                        moment(approval.approved_on).format(
+                          "DD-MM-YYYY hh:mm A"
+                        )
+                      }}
+                    </td>
+                    <td>{{ approval.approved_role.name }}</td>
+                    <td>
+                      {{
+                        approval.approved_by.first_name +
+                          " " +
+                          approval.approved_by.last_name
+                      }}
+                    </td>
+                  </tr>
+                </ng-container>
+                <ng-container *ngIf="!approvalHistory">
+                  <tr>
+                    <td colspan="6" class="text-center">No approvals found!</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade master-modal-style"
+  id="trial-status-modal"
+  data-keyboard="false"
+  data-backdrop="static"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Trial Approval History
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body form-style-md form-style-font linux">
+        <div class="form-row">
+          <div class="col-md-12">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Unit/Role</th>
+                  <th>Ship</th>
+                  <th>Trial Unit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngIf="selectedTrial">
+                  <tr>
+                    <td>Initiater</td>
+                    <td>
+                      <label class="text-success"
+                        ><span class="material-icons-outlined">thumb_up</span>
+                        <br />
+                        {{
+                          moment(selectedTrial.created_on).format(
+                            "DD-MM-YYYY hh:mm A"
+                          )
+                        }}</label
+                      >
+                    </td>
+                    <td>
+                      <ng-container *ngIf="selectedTrial.trial_initiater">
+                        <label
+                          class="text-success"
+                          *ngIf="selectedTrial.trial_initiater.status == 1"
+                          ><span class="material-icons-outlined">thumb_up</span>
+                          <br />
+                          {{
+                            moment(
+                              selectedTrial.trial_initiater.approved_on
+                            ).format("DD-MM-YYYY hh:mm A")
+                          }}</label
+                        >
+                        <label
+                          class="text-danger"
+                          *ngIf="selectedTrial.trial_initiater.status == 2"
+                          ><span class="material-icons-outlined"
+                            >thumb_down</span
+                          >
+                          ({{ selectedTrial.trial_initiater.comments }}) <br />
+                          {{
+                            moment(
+                              selectedTrial.trial_initiater.approved_on
+                            ).format("DD-MM-YYYY hh:mm A")
+                          }}</label
+                        >
+                      </ng-container>
+                      <ng-container *ngIf="!selectedTrial.trial_initiater">
+                        <label class="text-info">NA</label>
+                      </ng-container>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Recommender</td>
+                    <td>
+                      <ng-container *ngIf="selectedTrial.ship_recommendation">
+                        <label
+                          class="text-success"
+                          *ngIf="selectedTrial.ship_recommendation.status == 1"
+                          ><span class="material-icons-outlined">thumb_up</span>
+                          ({{ selectedTrial.ship_recommendation.comments }})
+                          <br />
+                          {{
+                            moment(
+                              selectedTrial.ship_recommendation.approved_on
+                            ).format("DD-MM-YYYY hh:mm A")
+                          }}</label
+                        >
+                        <label
+                          class="text-danger"
+                          *ngIf="selectedTrial.ship_recommendation.status == 2"
+                          ><span class="material-icons-outlined"
+                            >thumb_down</span
+                          >
+                          ({{ selectedTrial.ship_recommendation.comments }})
+                          <br />
+                          {{
+                            moment(
+                              selectedTrial.ship_recommendation.approved_on
+                            ).format("DD-MM-YYYY hh:mm A")
+                          }}</label
+                        >
+                      </ng-container>
+                      <ng-container *ngIf="!selectedTrial.ship_recommendation">
+                        <label class="text-info">NA</label>
+                      </ng-container>
+                    </td>
+                    <td>
+                      <ng-container *ngIf="selectedTrial.trial_recommendation">
+                        <label
+                          class="text-success"
+                          *ngIf="selectedTrial.trial_recommendation.status == 1"
+                          ><span class="material-icons-outlined">thumb_up</span>
+                          ({{ selectedTrial.trial_recommendation.comments }})
+                          <br />
+                          {{
+                            moment(
+                              selectedTrial.ship_recommendation.approved_on
+                            ).format("DD-MM-YYYY hh:mm A")
+                          }}</label
+                        >
+                        <label
+                          class="text-danger"
+                          *ngIf="selectedTrial.trial_recommendation.status == 2"
+                          ><span class="material-icons-outlined"
+                            >thumb_down</span
+                          >
+                          ({{ selectedTrial.trial_recommendation.comments }})
+                          <br />
+                          {{
+                            moment(
+                              selectedTrial.trial_recommendation.approved_on
+                            ).format("DD-MM-YYYY hh:mm A")
+                          }}</label
+                        >
+                      </ng-container>
+                      <ng-container *ngIf="!selectedTrial.trial_recommendation">
+                        <label class="text-info">NA</label>
+                      </ng-container>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Approver</td>
+                    <td>
+                      <ng-container *ngIf="selectedTrial.ship_approver">
+                        <label
+                          class="text-success"
+                          *ngIf="selectedTrial.ship_approver.status == 1"
+                          ><span class="material-icons-outlined">thumb_up</span>
+                          ({{ selectedTrial.ship_approver.comments }}) <br />
+                          {{
+                            moment(
+                              selectedTrial.ship_approver.approved_on
+                            ).format("DD-MM-YYYY hh:mm A")
+                          }}</label
+                        >
+                        <label
+                          class="text-danger"
+                          *ngIf="selectedTrial.ship_approver.status == 2"
+                          ><span class="material-icons-outlined"
+                            >thumb_down</span
+                          >
+                          ({{ selectedTrial.ship_approver.comments }}) <br />
+                          {{
+                            moment(
+                              selectedTrial.ship_approver.approved_on
+                            ).format("DD-MM-YYYY hh:mm A")
+                          }}</label
+                        >
+                      </ng-container>
+                      <ng-container *ngIf="!selectedTrial.ship_approver">
+                        <label class="text-info">NA</label>
+                      </ng-container>
+                    </td>
+                    <td>
+                      <ng-container *ngIf="selectedTrial.trial_approver">
+                        <label
+                          class="text-success"
+                          *ngIf="selectedTrial.trial_approver.status == 1"
+                          ><span class="material-icons-outlined">thumb_up</span>
+                          ({{ selectedTrial.trial_approver.comments }}) <br />
+                          {{
+                            moment(
+                              selectedTrial.trial_approver.approved_on
+                            ).format("DD-MM-YYYY hh:mm A")
+                          }}</label
+                        >
+                        <label
+                          class="text-danger"
+                          *ngIf="selectedTrial.trial_approver.status == 2"
+                          ><span class="material-icons-outlined"
+                            >thumb_down</span
+                          >
+                          ({{ selectedTrial.trial_approver.comments }}) <br />
+                          {{
+                            moment(
+                              selectedTrial.trial_approver.approved_on
+                            ).format("DD-MM-YYYY hh:mm A")
+                          }}</label
+                        >
+                      </ng-container>
+                      <ng-container *ngIf="!selectedTrial.trial_approver">
+                        <label class="text-info">NA</label>
+                      </ng-container>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+
+            <div
+              class="row d-flex justify-content-center mt-4 mb-70 timeline"
+              *ngIf="
+                selectedTrial &&
+                selectedTrial.history &&
+                selectedTrial.history.length > 0
+              "
+            >
+              <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                  <div class="card-body">
+                    <h5 class="card-title">Trials Log</h5>
+                    <div
+                      class="vertical-timeline vertical-timeline--animate vertical-timeline--one-column"
+                    >
+                      <ng-container
+                        *ngFor="let history of selectedTrial.history"
+                      >
+                        <div
+                          class="vertical-timeline-item vertical-timeline-element"
+                        >
+                          <div>
+                            <span
+                              class="vertical-timeline-element-icon bounce-in"
+                              *ngIf="history.status == 1"
+                            >
+                              <i class="badge badge-success"
+                                ><span class="material-icons-outlined"
+                                  >thumb_up</span
+                                ></i
+                              >
+                            </span>
+                            <span
+                              class="vertical-timeline-element-icon bounce-in"
+                              *ngIf="history.status == 2"
+                            >
+                              <i class="badge badge-danger"
+                                ><span class="material-icons-outlined"
+                                  >thumb_down</span
+                                ></i
+                              >
+                            </span>
+                            <div
+                              class="vertical-timeline-element-content bounce-in"
+                            >
+                              <h4 class="timeline-title">
+                                {{
+                                  history.approved_by.first_name +
+                                    " " +
+                                    history.approved_by.last_name +
+                                    " (" +
+                                    history.approved_role.name +
+                                    " from " +
+                                    history.approved_by.process.name +
+                                    " )"
+                                }}
+                              </h4>
+                              <p>{{ history.comments }}</p>
+                              <span class="vertical-timeline-element-date">{{
+                                moment(history.approved_on).format(
+                                  "DD-MM-YYYY hh:mm A"
+                                )
+                              }}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

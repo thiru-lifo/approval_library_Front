@@ -1,0 +1,153 @@
+.sidemenu {
+  background: #0b014a;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  width: 230px;
+  padding-top: 85px;
+  color: #fff;
+  transition: all 0.5s ease;
+  height: 100vh;
+  box-shadow: 0px 5px 14px rgba(31, 28, 29, 0.05),
+    0px 2px 6px rgba(31, 28, 29, 0.05);
+  transition: all 0.5 ease;
+}
+.sidemenu ul {
+  padding: 0;
+}
+.sidemenu ul li {
+  list-style: none;
+  display: block;
+  position: relative;
+}
+.sidemenu ul li a {
+  padding: 10px 20px;
+  color: #fff;
+  display: block;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 400;
+}
+.sidemenu .event-menu ul li {
+  border-bottom: 1px solid #291d75;
+}
+.sidemenu .event-menu ul li a {
+  padding: 10px 10px 10px 30px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #fff;
+}
+.sidemenu .event-menu.active .has-arrow {
+  background: #0b014a;
+  color: #fff;
+  font-weight: 600;
+}
+.sidemenu .event-menu ul li.active a {
+  background: #0b014a;
+  color: #fff;
+  font-weight: 500;
+}
+.sidemenu .event-menu ul li a:hover,
+.sidemenu .event-menu ul li a:focus {
+  background: #0b014a;
+  color: #fff;
+}
+.sidemenu ul li .iconify {
+  font-size: 16px;
+}
+.sidemenu ul li p {
+  margin: 5px 0 0;
+  display: inline-block;
+}
+.sidemenu ul li i {
+  position: absolute;
+  top: 20px;
+  left: 15px;
+}
+.metismenu .has-arrow::after {
+  top: 44%;
+  right: 30px;
+  transform: rotate(315deg);
+}
+.menu-bar {
+  top: 20px;
+  right: 0;
+  z-index: 99;
+  color: #000;
+}
+.menu-icon {
+  padding: 10px 25px;
+  font-size: 35px;
+  line-height: 25px;
+  color: #fff;
+}
+
+.sidemenu li.active a,
+.sidemenu li a:focus {
+  color: #fff !important;
+  background: rgba(78, 59, 206, 0.5)!important;
+  border-color: #1e1364;
+}
+
+
+.sidemenu li a:hover{
+  color: #fff !important;
+  background: #1aa7ec!important;
+  border-color: #1e1364;
+}
+
+.sidemenu ul li ul {
+  background: #1f1464;
+}
+.sidemenu ul li ul li a {
+  color: #fff;
+  font-size: 15px;
+}
+
+/*New*/
+.sidemenu.sidemenu2 {
+  width: auto;
+  transition: all 0.5s ease;
+}
+.sidemenu2 ul li a .menu-title {
+  display: none;
+  transition: all 0.5s ease;
+}
+.sidemenu2 li a {
+  color: #736d70 !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  padding: 15px 20px !important;
+  display: block;
+  border-right: 4px solid transparent;
+  border-radius: 4px 0px 0px 4px;
+}
+.sidemenu2 li.active a,
+.sidemenu2 li a:hover,
+.sidemenu2 li a:focus {
+  color: #651137 !important;
+  background: #fcedf4 !important;
+  border-color: #651137;
+}
+.sidemenu2 li a .iconify {
+  vertical-align: middle;
+  margin-top: -3px;
+  font-size: 18px;
+  margin-right: 5px;
+}
+.metismenu li {
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
+}
+.sidemenu ul:nth-child(2) ul li a {
+  padding: 10px 10px 10px 45px !important;
+}
+
+select {
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

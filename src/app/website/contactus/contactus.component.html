@@ -1,0 +1,120 @@
+<section class="body-card">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-md-6">
+                <h3>Contact Us/Enquiry's From Landing Page</h3>
+              </div>
+              <div class="col-md-6">
+                <div class="text-right">
+                  <!--<a href="#" data-toggle="modal" data-target="#crud-countries" (click)="create()" class="btn btn-primary btn-round-sm"  *ngIf="permission.add==true" >Create</a>-->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container table-options">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-paginator
+                  [length]="100"
+                  [pageSize]="10"
+                  [pageSizeOptions]="[10, 20, 30, 50, 100, 250, 500, 1000]"
+                  aria-label="Select page"
+                >
+                </mat-paginator>
+              </div>
+              <div class="col-md-6">
+                <div appearance="standard">
+                  <!--<mat-label>Search your text here</mat-label>-->
+                  <input
+                    matInput
+                    (keyup)="applyFilter($event)"
+                    placeholder="Search your text here"
+                    class="search-mat-table"
+                    #input
+                  />
+                  <!--<input matInput class="search-mat-table" #input >-->
+                </div>
+              </div>
+            </div>
+          </div>
+          <table
+            mat-table
+            [dataSource]="dataSource"
+            class="mat-elevation-z8"
+            style="display: inline-table"
+          >
+            <ng-container matColumnDef="#">
+              <th mat-header-cell *matHeaderCellDef><b> Sr.No. </b></th>
+              <td mat-cell *matCellDef="let enquiryData">
+                {{ enquiryData.id }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="created_on">
+              <th mat-header-cell *matHeaderCellDef><b> Date </b></th>
+              <td mat-cell *matCellDef="let enquiryData">
+                {{ enquiryData.created_on }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="trail_unit">
+              <th mat-header-cell *matHeaderCellDef><b> Trial Unit </b></th>
+              <td mat-cell *matCellDef="let enquiryData">
+                {{ enquiryData.trial_unit.name }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef><b> Name </b></th>
+              <td mat-cell *matCellDef="let enquiryData">
+                {{ enquiryData.name }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef><b> Email </b></th>
+              <td mat-cell *matCellDef="let enquiryData">
+                {{ enquiryData.email }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="mobile">
+              <th mat-header-cell *matHeaderCellDef><b> Mobile </b></th>
+              <td mat-cell *matCellDef="let enquiryData">
+                {{ enquiryData.mobile }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="message">
+              <th mat-header-cell *matHeaderCellDef><b> Message </b></th>
+              <td mat-cell *matCellDef="let enquiryData">
+                {{ enquiryData.message }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="noData">
+              <th
+                mat-footer-cell
+                *matFooterCellDef
+                [attr.colspan]="displayedColumns.length"
+                class="norecord"
+              >
+                No Records Found!
+              </th>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            <tr
+              mat-footer-row
+              *matFooterRowDef="['noData']"
+              [hidden]="dataSource && dataSource.data.length > 0"
+            ></tr>
+            <tr class="mat-row" *matNoDataRow>
+              <td *ngIf="filterValue" class="norecord" colspan="4">
+                <b>No data matching with "{{ input.value }}"</b>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

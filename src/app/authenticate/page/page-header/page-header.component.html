@@ -1,0 +1,204 @@
+<header class="header-fixed-top landing-header">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-12 col-lg-12 col-align">
+        <div class="landing-logo">
+          <a href="javascript:void(0)" (click)="etma()">
+            <div class="admin-box" *ngIf="pages && trial_code == 'ETMA'">
+              <a
+                class=""
+                href="javascript:void(0)"
+                routerLink="/authenticate/login/etma"
+              >
+                <div class="img-div">
+                  <img
+                    _ngcontent-rgv-c371=""
+                    src="assets/images/etma-logo.jpg"
+                    style="
+                      width: 80px;
+                      height: 60px;
+                      float: left;
+                      border-radius: 50%;
+                    "
+                  />
+                </div>
+              </a>
+              <b><p style="margin-right: 30px; color: white">ETMA</p></b>
+            </div>
+          </a>
+          <a href="javascript:void(0)" (click)="cbiu()">
+            <div class="admin-box" *ngIf="pages && trial_code == 'CBIU'">
+              <a
+                class=""
+                href="javascript:void(0)"
+                routerLink="/authenticate/login/cbiu"
+              >
+                <div class="img-div">
+                  <img
+                    _ngcontent-rgv-c371=""
+                    src="assets/images/cbiu-logo.jpg"
+                    style="
+                      width: 80px;
+                      height: 60px;
+                      float: left;
+                      border-radius: 50%;
+                    "
+                  />
+                </div>
+              </a>
+              <b><p style="margin-right: 30px; color: white">CBIU</p></b>
+            </div>
+          </a>
+          <a href="javascript:void(0)" (click)="gttt()">
+            <div class="admin-box" *ngIf="pages && trial_code == 'GTTT'">
+              <a
+                class=""
+                href="javascript:void(0)"
+                routerLink="/authenticate/login/gttt"
+              >
+                <div class="img-div">
+                  <img
+                    _ngcontent-rgv-c371=""
+                    src="assets/images/gttt-logo.jpg"
+                    style="width: 80px; height: 60px; float: left"
+                  />
+                </div>
+              </a>
+              <b><p style="margin-right: 30px; color: white">GTTT</p></b>
+            </div>
+          </a>
+          <a href="javascript:void(0)" (click)="mtu()">
+            <div class="admin-box" *ngIf="pages && trial_code == 'MTU'">
+              <a
+                class=""
+                href="javascript:void(0)"
+                routerLink="/authenticate/login/mtu"
+              >
+                <div class="img-div">
+                  <img
+                    _ngcontent-rgv-c371=""
+                    src="assets/images/mtu-logo.jpg"
+                    style="
+                      width: 80px;
+                      height: 60px;
+                      float: left;
+                      margin-top: 10px;
+                    "
+                  />
+                </div>
+              </a>
+              <b><p style="margin-right: 30px; color: white">MTU</p></b>
+            </div>
+          </a>
+          <a href="javascript:void(0)" (click)="dttt()">
+            <div class="admin-box" *ngIf="pages && trial_code == 'DTTT'">
+              <a
+                class=""
+                href="javascript:void(0)"
+                routerLink="/authenticate/login/dttt"
+              >
+                <div class="img-div">
+                  <img
+                    _ngcontent-rgv-c371=""
+                    src="assets/images/dttt-logo.jpg"
+                    style="width: 80px; height: 60px; float: left"
+                  />
+                </div>
+              </a>
+              <b><p style="margin-right: 30px; color: white">DTTT</p></b>
+            </div>
+          </a>
+        </div>
+        <div class="landing-header-menu">
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li>
+              <a
+                href="javascript:void(0)"
+                routerLink="/authenticate/page/{{ id }}"
+                >Landing Page</a
+              >
+            </li>
+            <li>
+              <a href="javascript:void(0)" routerLink="/authenticate/about-us"
+                >About Us</a
+              >
+            </li>
+            <li>
+              <a href="javascript:void(0)" routerLink="/authenticate/contact-us"
+                >Contact Us</a
+              >
+            </li>
+            <li *ngIf="pages && trial_code == 'ETMA'">
+              <a href="javascript:void(0)" (click)="etma()">
+                <div class="admin-box">
+                  <li>
+                    <a
+                      class=""
+                      href="javascript:void(0)"
+                      routerLink="/authenticate/login/etma"
+                    >
+                      Login
+                    </a>
+                  </li>
+                </div>
+              </a>
+            </li>
+            <li *ngIf="pages && trial_code == 'CBIU'">
+              <a href="javascript:void(0)" (click)="cbiu()">
+                <div class="admin-box">
+                  <a
+                    class=""
+                    href="javascript:void(0)"
+                    routerLink="/authenticate/login/cbiu"
+                  >
+                    Login
+                  </a>
+                </div>
+              </a>
+            </li>
+            <li *ngIf="pages && trial_code == 'GTTT'">
+              <a href="javascript:void(0)" (click)="gttt()">
+                <div class="admin-box">
+                  <a
+                    class=""
+                    href="javascript:void(0)"
+                    routerLink="/authenticate/login/gttt"
+                  >
+                    Login
+                  </a>
+                </div>
+              </a>
+            </li>
+            <li *ngIf="pages && trial_code == 'MTU'">
+              <a href="javascript:void(0)" (click)="mtu()">
+                <div class="admin-box">
+                  <a
+                    class=""
+                    href="javascript:void(0)"
+                    routerLink="/authenticate/login/mtu"
+                  >
+                    Login
+                  </a>
+                </div>
+              </a>
+            </li>
+            <li *ngIf="pages && trial_code == 'DTTT'">
+              <a href="javascript:void(0)" (click)="dttt()">
+                <div class="admin-box">
+                  <a
+                    class=""
+                    href="javascript:void(0)"
+                    routerLink="/authenticate/login/dttt"
+                  >
+                    Login
+                  </a>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

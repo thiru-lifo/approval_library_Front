@@ -1,0 +1,238 @@
+<body class="dashboard">
+  <div class="planet-cover">
+    <div class="container">
+      <h3 class="main-heading">INTEGRATED TRIALS DATA CAPTURING MODULE</h3>
+      <div class="planet-fixed">
+        <div class="plant-round1">
+          <div class="planet-center">
+            <img src="assets/images/dashboard/planet-ship.png" />
+            <div class="planet-line line1"></div>
+            <div class="planet-line line2"></div>
+            <div class="planet-line line3"></div>
+            <div class="planet-line line4"></div>
+            <div class="planet-line line5"></div>
+            <div class="planet-line line6"></div>
+            <div class="planet-line line7"></div>
+            <div class="planet-line line8"></div>
+            <div class="planet-line line9"></div>
+          </div>
+          <ng-container *ngFor="let country of countryList; let i = index">
+            <div class="unit-rounded round{{ country.sequence }}">
+              <a
+                *ngIf="country.url_type == 'Internal'"
+                class=""
+                target="{{ country.url_target == 'Yes' ? '_blank' : '_self' }}"
+                routerLink="{{ country.url }}"
+              >
+                <div class="unit1 unit{{ country.sequence }} ">
+                  <div class="rounded">
+                    <img src="{{ ImgUrl }}{{ country && country.logo }}" />
+                    <p>{{ country.name }}</p>
+                  </div>
+                </div>
+              </a>
+              <div class="satellite-unit">
+                <ul>
+                  <div
+                    *ngFor="
+                      let data of countryList[i].satellite_data;
+                      let j = index
+                    "
+                  >
+                    <a
+                      routerLink="{{
+                        data.url != null ? data.url : 'javascript:void(0);'
+                      }}"
+                    >
+                      <li>
+                        {{ data.satellite_unit }}
+                      </li>
+                    </a>
+                  </div>
+                  <!-- <li>MUMBAI</li>
+                    <li>KOCHI</li>
+                    <li>KOCHIB</li> -->
+                </ul>
+              </div>
+            </div>
+
+            <div class="unit-rounded round{{ country.sequence }}">
+              <a
+                *ngIf="country.url_type == 'External'"
+                class=""
+                target="{{ country.url_target == 'Yes' ? '_blank' : '_self' }}"
+                href="{{ country.url }}"
+              >
+                <div class="unit1 unit{{ country.sequence }}">
+                  <div class="rounded">
+                    <img src="{{ ImgUrl }}{{ country && country.logo }}" />
+                    <p>{{ country.name }}</p>
+                  </div>
+                </div>
+              </a>
+              <div class="satellite-unit">
+                <ul>
+                  <div
+                    *ngFor="
+                      let data of countryList[i].satellite_data;
+                      let j = index
+                    "
+                  >
+                    <a
+                      href="{{
+                        data.url != null ? data.url : 'javascript:void(0);'
+                      }}"
+                    >
+                      <li>
+                        {{ data.satellite_unit }}
+                      </li>
+                    </a>
+                  </div>
+                  <!-- <li>VIZAG</li>
+                    <li>MUMBAI</li>
+                    <li>KOCHI</li>
+                    <li>KOCHIB</li> -->
+                </ul>
+              </div>
+            </div>
+          </ng-container>
+          <!-- <div class="unit-rounded round2">
+            <div class="unit1 unit2">
+              <div class="rounded">
+                <img src="assets/images/dashboard/mtu-logo.jpg" />
+                <p>MTU</p>
+              </div>
+            </div>
+            <div class="satellite-unit">
+              <ul>
+                <li>VIZAG</li>
+                <li>MUMBAI</li>
+                <li>KOCHI</li>
+                <li>KOCHIB</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="unit-rounded round3">
+            <div class="unit1 unit3">
+              <div class="rounded">
+                <img src="assets/images/dashboard/fttt-logo.jpg" />
+                <p>FTTT</p>
+              </div>
+            </div>
+            <div class="satellite-unit">
+              <ul>
+                <li>VIZAG</li>
+                <li>MUMBAI</li>
+                <li>KOCHI</li>
+                <li>KOCHIB</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="unit-rounded round4">
+            <div class="unit1 unit4">
+              <div class="rounded">
+                <img src="assets/images/dashboard/wrstg-logo.jpg" />
+                <p>WRSTG</p>
+              </div>
+            </div>
+            <div class="satellite-unit">
+              <ul>
+                <li>VIZAG</li>
+                <li>MUMBAI</li>
+                <li>KOCHI</li>
+                <li>KOCHIB</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="unit-rounded round5">
+            <div class="unit1 unit5">
+              <div class="rounded">
+                <img src="assets/images/dashboard/dttt-logo.jpg" />
+                <p>DTTT</p>
+              </div>
+            </div>
+            <div class="satellite-unit">
+              <ul>
+                <li>VIZAG</li>
+                <li>MUMBAI</li>
+                <li>KOCHI</li>
+                <li>KOCHIB</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="unit-rounded round6">
+            <div class="unit1 unit6">
+              <div class="rounded">
+                <img src="assets/images/dashboard/etma-logo.jpg" />
+                <p>ETMA</p>
+              </div>
+            </div>
+            <div class="satellite-unit">
+              <ul>
+                <li>VIZAG</li>
+                <li>MUMBAI</li>
+                <li>KOCHI</li>
+                <li>KOCHIB</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="unit-rounded round7">
+                        <div class="unit1 unit7">
+                            <div class="rounded">
+                                <img src="images/seg-logo.png" />
+                                <p>SEG</p>
+                            </div>
+                        </div>
+                        <div class="satellite-unit">
+                            <ul>
+                                <li>VIZAG</li>
+                                <li>MUMBAI</li>
+                                <li>KOCHI</li>
+                                <li>KOCHIB</li>
+                            </ul>
+                        </div>
+                    </div>
+
+          <div class="unit-rounded round8">
+            <div class="unit1 unit8">
+              <div class="rounded">
+                <img src="assets/images/dashboard/cbiu-logo.png" />
+                <p>CBIU</p>
+              </div>
+            </div>
+            <div class="satellite-unit">
+              <ul>
+                <li>VIZAG</li>
+                <li>MUMBAI</li>
+                <li>KOCHI</li>
+                <li>KOCHIB</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="unit-rounded round9">
+            <div class="unit1 unit9">
+              <div class="rounded">
+                <img src="assets/images/dashboard/seg-logo.png" />
+                <p>SEG</p>
+              </div>
+            </div>
+            <div class="satellite-unit">
+              <ul>
+                <li>VIZAG</li>
+                <li>MUMBAI</li>
+                <li>KOCHI</li>
+                <li>KOCHIB</li>
+              </ul>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

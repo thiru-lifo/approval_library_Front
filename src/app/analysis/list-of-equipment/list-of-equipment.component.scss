@@ -1,0 +1,10 @@
+.card-body svg{height: 200px; width: 100%;}
+.highcharts-credits{display: none;}
+.filter-card{
+    background: #fff; padding: 10px; border-radius: 4px; margin-bottom: 15px;
+    .form-group{margin-bottom: 0;}
+    .form-control{font-size: 14px; color: #000; padding: 10px !important; height: 45px;}
+    .btn{height: 45px; padding: 10px 35px; font-size: 14px;}
+    .btn-primary:hover, .btn-primary:focus{background: #2d1c9b !important; border-color: #2d1c9b !important;}
+}
+.form-row .card{margin-bottom: 10px !important;}
