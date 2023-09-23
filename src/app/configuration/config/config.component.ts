@@ -24,7 +24,7 @@ export class ConfigComponent implements OnInit {
 displayedColumns: string[] = [
     "name",
     "code",
-    "description",
+    // "description",
     "status",
     "view",
     "edit",
@@ -62,9 +62,9 @@ displayedColumns: string[] = [
     id: new FormControl(""),
     name: new FormControl("",[Validators.required]),
     code: new FormControl("",[Validators.required]),
-    description: new FormControl("",[Validators.required]),
-    status: new FormControl("", [Validators.required]),
-    created_by: new FormControl("", [Validators.required]),
+    desc: new FormControl("",[Validators.required]),
+    status: new FormControl("",),
+    created_by: new FormControl("",),
   });
    status = this.editForm.value.status;
   populate(data) {
@@ -83,7 +83,6 @@ displayedColumns: string[] = [
 
   ngOnInit(): void {
      this.getApproval();
-     this.getTrialUnits();
      this.getUserRoles();
      this.getAccess();
   }
@@ -115,12 +114,12 @@ displayedColumns: string[] = [
 
   getApproval() {
     this.api
-      .getAPI(environment.API_URL + "configuration/approvals")
+      .getAPI(environment.API_URL + "approver/config_list")
       .subscribe((res) => {
         this.dataSource = new MatTableDataSource(res.data);
         this.countryList = res.data;
         this.dataSource.paginator = this.pagination;
-        //this.logger.log('country',this.countryList)
+        this.logger.log('country',this.countryList)
       });
   }
 
@@ -172,7 +171,7 @@ displayedColumns: string[] = [
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-        this.api.postAPI(environment.API_URL + "configuration/approvals/crud", {
+        this.api.postAPI(environment.API_URL + "approver/config", {
           id: id,
           status: 3,
         }).subscribe((res)=>{
@@ -196,7 +195,7 @@ displayedColumns: string[] = [
       this.editForm.value.status = this.editForm.value.status==true ? 1 : 2;
       this.api
         .postAPI(
-          environment.API_URL + "configuration/approvals/crud",
+          environment.API_URL + "approver/config",
           this.editForm.value
         )
         .subscribe((res) => {
