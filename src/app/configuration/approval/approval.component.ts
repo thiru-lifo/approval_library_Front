@@ -21,10 +21,11 @@ export class ApprovalComponent implements OnInit {
 
 
   displayedColumns: string[] = [
+    "config",
     "user_role",
-    "trail_unit",
-    "satellite_unit",
+    "user",
     "level",
+    "type",
     "status",
     "view",
     "edit",
@@ -60,9 +61,9 @@ export class ApprovalComponent implements OnInit {
 
   public editForm = new FormGroup({
     id: new FormControl(""),
-    trail_unit: new FormControl("",[Validators.required]),
-    satellite_unit: new FormControl("",[Validators.required]),
-    user_role: new FormControl("",[Validators.required]),
+    config_id: new FormControl("",[Validators.required]),
+    role_id: new FormControl("",[Validators.required]),
+    user_id: new FormControl("",[Validators.required]),
     level: new FormControl("", [Validators.required]),
     type: new FormControl("",[Validators.required]),
     status: new FormControl("", [Validators.required]),
@@ -70,13 +71,8 @@ export class ApprovalComponent implements OnInit {
    status = this.editForm.value.status;
   populate(data) {
     this.editForm.patchValue(data);
-    this.editForm.patchValue({trail_unit:data.trail_unit.id});
-    this.editForm.patchValue({user_role:data.user_role.id});
-    this.getSatelliteUnits(data.trail_unit.id);
-    setTimeout(()=>{
-      this.editForm.patchValue({satellite_unit:data.satellite_unit.id});
-    },500);
-    //this.logger.info(data.status)
+    // this.editForm.patchValue({trail_unit:data.trail_unit.id});
+
   }
 
   initForm() {
@@ -90,10 +86,11 @@ export class ApprovalComponent implements OnInit {
   };
 
   ngOnInit(): void {
-     this.getApproval();
-     this.getTrialUnits();
-     this.getUserRoles();
-     this.getAccess();
+    this.getApproval();
+    this.getConfigList();
+    this.getUser();
+    this.getUserRoles();
+    this.getAccess();
   }
   userRoles:any;
   getUserRoles() {
@@ -103,32 +100,32 @@ export class ApprovalComponent implements OnInit {
         this.userRoles = res.data;
       });
   }
-  trialUnits:any;
-  getTrialUnits() {
+  config:any;
+  getConfigList() {
     this.api
-      .getAPI(environment.API_URL + "master/trial_units?status=1")
+      .getAPI(environment.API_URL + "approver/config_list?status=1")
       .subscribe((res) => {
-        this.trialUnits = res.data;
+        this.config = res.data;
       });
   }
 
-  satelliteUnits:any;
-  getSatelliteUnits(trial_unit_id='') {
+  user:any;
+  getUser() {
     this.api
-      .getAPI(environment.API_URL + "master/satellite_units?trial_unit_id="+trial_unit_id+'&status=1')
+      .getAPI(environment.API_URL + "api/auth/users?status=1")
       .subscribe((res) => {
-        this.satelliteUnits = res.data;
+        this.user = res.data;
       });
   }
 
   getApproval() {
     this.api
-      .getAPI(environment.API_URL + "configuration/approvals")
+      .getAPI(environment.API_URL + "approver/approved_config_list")
       .subscribe((res) => {
         this.dataSource = new MatTableDataSource(res.data);
         this.countryList = res.data;
         this.dataSource.paginator = this.pagination;
-        //this.logger.log('country',this.countryList)
+        this.logger.log('country',this.countryList)
       });
   }
 
@@ -180,7 +177,7 @@ export class ApprovalComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-        this.api.postAPI(environment.API_URL + "configuration/approvals/crud", {
+        this.api.postAPI(environment.API_URL + "approver/approved_config", {
           id: id,
           status: 3,
         }).subscribe((res)=>{
@@ -199,12 +196,14 @@ export class ApprovalComponent implements OnInit {
   }
 
   onSubmit() {
+      console.log("EditForm",this.editForm.value);
+
      if (this.editForm.valid) {
       this.editForm.value.created_by = this.api.userid.user_id;
       this.editForm.value.status = this.editForm.value.status==true ? 1 : 2;
       this.api
         .postAPI(
-          environment.API_URL + "configuration/approvals/crud",
+          environment.API_URL + "approver/approved_config",
           this.editForm.value
         )
         .subscribe((res) => {

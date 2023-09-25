@@ -33,14 +33,14 @@ export class TrialsComponent implements OnInit {
 
   displayedColumnsApproved: string[] = [
     "trial_number",
-    "trial_unit",
-    //  "command",
-    "satellite_unit",
-    "ship",
-    "section",
-    // "equipment",
-    // "boilers",
-    "trial_type",
+    // "trial_unit",
+    // //  "command",
+    // "satellite_unit",
+    // "ship",
+    // "section",
+    // // "equipment",
+    // // "boilers",
+    // "trial_type",
     "requested_by",
     "requested_on",
     "view",
@@ -48,14 +48,14 @@ export class TrialsComponent implements OnInit {
   ];
   displayedColumnsPending: string[] = [
     "trial_number",
-    "trial_unit",
-    //  "command",
-    "satellite_unit",
-    "ship",
-    "section",
-    // "equipment",
-    // "boilers",
-    "trial_type",
+    // "trial_unit",
+    // //  "command",
+    // "satellite_unit",
+    // "ship",
+    // "section",
+    // // "equipment",
+    // // "boilers",
+    // "trial_type",
     "requested_by",
     "requested_on",
     "recommend",
@@ -109,14 +109,7 @@ export class TrialsComponent implements OnInit {
 
   public editForm = new FormGroup({
     id: new FormControl(""),
-    trial_unit: new FormControl("", [Validators.required]),
-    command: new FormControl(""),
-    satellite_unit: new FormControl("", [Validators.required]),
-    ship: new FormControl("", [Validators.required]),
-    section: new FormControl("", [Validators.required]),
-    equipment: new FormControl(""),
-    boilers: new FormControl(""),
-    trial_type: new FormControl("", [Validators.required]),
+    name: new FormControl("", [Validators.required]),
     status: new FormControl(1, [Validators.required]),
   });
   public approvalForm = new FormGroup({
@@ -135,30 +128,10 @@ export class TrialsComponent implements OnInit {
 
   status = this.editForm.value.status;
   populate(data) {
-    this.get_trial_unit_id();
-    this.trial_unit_id = String(this.trial_unit_id);
-    data.trial_unit.id = this.trial_unit_id;
-    //console.log(data);
     this.editForm.patchValue(data);
-    this.editForm.patchValue({ trial_unit: data.trial_unit.id });
-    this.getCommand(data.trial_unit.id);
-    this.getSatelliteUnits(data.trial_unit.id);
-    this.getShips(data.satellite_unit.id);
-    this.getSections(data.trial_unit.id, data.satellite_unit.id, data.ship.id);
-    this.getEquipments(data.satellite_unit.id, data.ship.id, data.section.id);
-    this.getBoiler(data.satellite_unit.id, data.ship.id, data.section.id);
-    this.getTrialTypes(data.trial_unit.id);
-    setTimeout(() => {
-      /*this.editForm.patchValue({command:data.command?data.command.id:''});*/
-      this.editForm.patchValue({ satellite_unit: data.satellite_unit ? data.satellite_unit.id : '' });
-      this.editForm.patchValue({ ship: data.ship.id });
-      this.editForm.patchValue({ section: data.section ? data.section.id : '' });
-      this.editForm.patchValue({ equipment: data.equipment ? data.equipment.id : '' });
-      this.editForm.patchValue({ boilers: data.boilers ? data.boilers.id : '' });
-      this.editForm.patchValue({ trial_type: data.trial_type.id });
-    }, 500);
+    this.editForm.patchValue({ satellite_unit: data.satellite_unit ? data.satellite_unit.id : '' });
     this.editForm.patchValue({ modified_by: this.api.userid.user_id });
-    //this.logger.info(data.status)
+
   }
 
   initForm() {
@@ -181,14 +154,6 @@ export class TrialsComponent implements OnInit {
     openModal('#trial-status-modal');
   }
 
-  displaySatelliteUnit(units) {
-    let satelliteUnits = '';
-    for (let i = 0; i < units.length; i++)
-      satelliteUnits += units[i].satellite_unit.name + ' & ';
-
-    return satelliteUnits.substring(0, (satelliteUnits.length) - 3);
-  }
-
   Error = (controlName: string, errorName: string) => {
     return this.editForm.controls[controlName].hasError(errorName);
   };
@@ -202,20 +167,9 @@ export class TrialsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log('this.api.userid', this.api.userid);
-    this.get_trial_unit_id();
     this.getTrials();
-    this.getTrialUnits();
     this.getAccess();
-    this.getSatelliteUnits();
-    this.getTrialTypes();
-    selectedOption: String(this.trial_unit_id);
-    // this.getTrialUniT();
-    // this.getSatelliteUniT();
-    // this.getShip();
-    // this.getsection();
-    // this.getTrailTyPE();
- this.refreshPaginator();
+    this.refreshPaginator();
   }
    refreshPaginator() {
     let pageIndex = 0;
@@ -225,161 +179,8 @@ export class TrialsComponent implements OnInit {
     }, 0, pageIndex);
   }
 
-  trialUnits: any;
-  getTrialUnits() {
-    this.api
-      .getAPI(environment.API_URL + "master/trial_units?status=1")
-      .subscribe((res) => {
-        this.trialUnits = res.data;
 
-      });
-  }
-
-  commands: any;
-  getCommand(trial_unit_id = '') {
-    this.get_trial_unit_id();
-    this.trial_unit_id = String(this.trial_unit_id);
-    this.getTrialTypes(this.trial_unit_id);
-    this.api
-      .getAPI(environment.API_URL + "master/command?trial_unit_id=" + this.trial_unit_id + '&status=1')
-      .subscribe((res) => {
-        this.commands = res.data;
-        // if(trial_unit_id=='1'){
-        //   this.isEquipment=true;
-        //   this.isBoiler=false;
-        //  }
-        //  else if(trial_unit_id=='2'){
-        //   this.isEquipment=false;
-        //   this.isBoiler=true;
-        //  }
-      });
-  }
-
-  trial_unit_id: any;
-
-  get_trial_unit_id() {
-    if (this.unit_title == 'ETMA') {
-      this.trial_unit_id = '1';
-      this.selectedOption = this.trial_unit_id;
-    }
-    if (this.unit_title == 'CBIU') {
-      this.trial_unit_id = '2';
-      this.selectedOption = this.trial_unit_id;
-    }
-    if (this.unit_title == 'DTTT') {
-      this.trial_unit_id = '5';
-      this.selectedOption = this.trial_unit_id;
-    }
-    if (this.unit_title == 'MTU') {
-      this.trial_unit_id = '4';
-      this.selectedOption = this.trial_unit_id;
-    }
-    if (this.unit_title == 'GTTT') {
-      this.trial_unit_id = '3';
-      this.selectedOption = this.trial_unit_id;
-    }
-
-  }
-
-
-
-
-
-  satelliteUnits: any;
-  getSatelliteUnits(command_id = '') {
-
-    //debugger;
-    this.get_trial_unit_id();
-    this.trial_unit_id = String(this.trial_unit_id);
-    //console.log("Trial_Unit_ID : ",this.trial_unit_id);
-    this.getTrialTypes(this.trial_unit_id);
-    this.api
-      .getAPI(environment.API_URL + "master/satellite_units?trial_unit_id=" + this.trial_unit_id + "&status=1")
-      .subscribe((res) => {
-        this.satelliteUnits = res.data;
-        if (this.trial_unit_id == '1' || this.trial_unit_id == '3' || this.trial_unit_id == '4' || this.trial_unit_id == '5') {
-          this.isEquipment = true;
-          this.isBoiler = false;
-        }
-        else if (this.trial_unit_id == '2') {
-          this.isEquipment = false;
-          this.isBoiler = true;
-        }
-      });
-  }
-  ships: any;
-  getShips(satellite_unit_id = '') {
-    this.get_trial_unit_id();
-    this.trial_unit_id = String(this.trial_unit_id);
-    this.api
-      .getAPI(environment.API_URL + "master/ships?"+"satellite_unit_id="+satellite_unit_id+ '&status=1')
-      .subscribe((res) => {
-        this.ships = res.data;
-      });
-  }
-  sections = [];
-  getSections(trial_unit_id = '', satellite_unit_id = '', ship_id = '') {
-    this.get_trial_unit_id();
-    this.trial_unit_id = String(this.trial_unit_id);
-    this.api
-      .getAPI(environment.API_URL + "master/sections?"+"trial_unit_id="+this.trial_unit_id+"&status=1")
-      .subscribe((res) => {
-        this.sections = res.data;
-        this.sections = [];
-        //console.log("RES DATA : ",res.data);
-        //console.log("RES MAPPED : ",res.mapped);
-        for (let i = 0; i < res.data.length; i++) {
-          for (let j = 0; j < res.mapped.length; j++) {
-            if (res.data[i].code == res.mapped[j].section_code)
-              this.sections.push(res.data[i])
-          }
-        }
-
-      });
-  }
-
-  equipments: any;
-  getEquipments(satellite_unit_id = '', ship_id = '', section_id = '') {
-    this.get_trial_unit_id();
-    this.trial_unit_id = String(this.trial_unit_id);
-    this.api
-      .getAPI(environment.API_URL + "master/equipments?" + "ship_id=" + ship_id + "&section_id=" + section_id + '&status=1')
-      .subscribe((res) => {
-        this.equipments = res.data;
-      });
-  }
-
-  boilers: any;
-  getBoiler(satellite_unit_id = '', ship_id = '', section_id = '') {
-    this.get_trial_unit_id();
-    this.trial_unit_id = String(this.trial_unit_id);
-    this.api
-    .getAPI(environment.API_URL + "master/equipments?" + "ship_id=" + ship_id + "&section_id=" + section_id + '&status=1')
-    .subscribe((res) => {
-        this.equipments = res.data;
-
-      });
-  }
-  trial_types: any;
-  getTrialTypes(trial_unit_id = '') {
-    this.get_trial_unit_id();
-    this.trial_unit_id = String(this.trial_unit_id);
-    console.log("trial_unit_id in Trial: ",trial_unit_id);
-    this.api
-      .getAPI(environment.API_URL + "master/trial_types?trial_unit_id=" + this.trial_unit_id + '&status=1&type=Trials')
-      .subscribe((res) => {
-        this.trial_types = res.data;
-      });
-  }
   getTrials() {
-    // this.api
-    //   .getAPI(environment.API_URL + "transaction/trials")
-    //   .subscribe((res) => {
-    //     this.dataSource = new MatTableDataSource(res.data);
-    //     this.countryList = res.data;
-    //     this.dataSource.paginator = this.pagination;
-    //     //this.logger.log('country',this.countryList)
-    //   });
     this.getTrialsPending();
   }
   showApproved() {
@@ -397,7 +198,6 @@ export class TrialsComponent implements OnInit {
       limit_start = (this.pageEvent.pageIndex ) * this.pageEvent.pageSize;
     }
     if (this.app_param == undefined) this.app_param = ""; else this.app_param;
-    // let searchString = ('?approved_level=-3&trial_type__type=Trials&' + this.app_param)
       let searchString = ('?approved_level=-3&legacy_data=No&trial_type__type=Trials'+'&limit_start='+limit_start+'&limit_end='+limit_end+'&'+this.app_param);
     this.api.displayPageloading(true);
     this.api
@@ -408,7 +208,6 @@ export class TrialsComponent implements OnInit {
         this.dataListApproved = res.data;
         this.dataSourceApproved.paginator = this.paginationApproved;
          this.totalLength = res.total_length;
-        //console.log('this.dataSourceApproved', this.dataSourceApproved);
         if (this.dataListApproved.length == 0) {
           this.notification.displayMessage("No Data Found");
         }

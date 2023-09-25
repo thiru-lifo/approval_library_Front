@@ -94,23 +94,6 @@ displayedColumns: string[] = [
         this.userRoles = res.data;
       });
   }
-  trialUnits:any;
-  getTrialUnits() {
-    this.api
-      .getAPI(environment.API_URL + "master/trial_units?status=1")
-      .subscribe((res) => {
-        this.trialUnits = res.data;
-      });
-  }
-
-  satelliteUnits:any;
-  getSatelliteUnits(trial_unit_id='') {
-    this.api
-      .getAPI(environment.API_URL + "master/satellite_units?trial_unit_id="+trial_unit_id+'&status=1')
-      .subscribe((res) => {
-        this.satelliteUnits = res.data;
-      });
-  }
 
   getApproval() {
     this.api
@@ -122,7 +105,6 @@ displayedColumns: string[] = [
         this.logger.log('country',this.countryList)
       });
   }
-
   create() {
     this.crudName = "Add";
     this.isReadonly=false;

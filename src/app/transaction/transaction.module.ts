@@ -8,15 +8,11 @@ import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { TrialsComponent } from './trials/trials.component';
-import { VechiclePassComponent } from './vechicle-pass/vechicle-pass.component';
-import { AccessCardComponent } from './access-card/access-card.component';
 
 
 @NgModule({
   declarations: [
     TrialsComponent,
-    VechiclePassComponent,
-    AccessCardComponent,
 
   ],
   imports: [
