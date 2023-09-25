@@ -32,35 +32,16 @@ export class TrialsComponent implements OnInit {
   active = 1;
 
   displayedColumnsApproved: string[] = [
-    "trial_number",
-    // "trial_unit",
-    // //  "command",
-    // "satellite_unit",
-    // "ship",
-    // "section",
-    // // "equipment",
-    // // "boilers",
-    // "trial_type",
+    "name",
     "requested_by",
     "requested_on",
     "view",
 
   ];
   displayedColumnsPending: string[] = [
-    "trial_number",
-    // "trial_unit",
-    // //  "command",
-    // "satellite_unit",
-    // "ship",
-    // "section",
-    // // "equipment",
-    // // "boilers",
-    // "trial_type",
+    "name",
     "requested_by",
     "requested_on",
-    "recommend",
-    "approval",
-    "print",
     "status",
     "view",
     "edit",
@@ -84,7 +65,7 @@ export class TrialsComponent implements OnInit {
   moment = moment;
   pageEvent: PageEvent;
   totalLength=0;
-  unit_title = this.api.decryptData(localStorage.getItem('UNITTITLE'));
+  // unit_title = this.api.decryptData(localStorage.getItem('UNITTITLE'));
 
   public permission = {
     add: false,
@@ -129,8 +110,8 @@ export class TrialsComponent implements OnInit {
   status = this.editForm.value.status;
   populate(data) {
     this.editForm.patchValue(data);
-    this.editForm.patchValue({ satellite_unit: data.satellite_unit ? data.satellite_unit.id : '' });
-    this.editForm.patchValue({ modified_by: this.api.userid.user_id });
+    // this.editForm.patchValue({ satellite_unit: data.satellite_unit ? data.satellite_unit.id : '' });
+    // this.editForm.patchValue({ modified_by: this.api.userid.user_id });
 
   }
 
@@ -198,19 +179,19 @@ export class TrialsComponent implements OnInit {
       limit_start = (this.pageEvent.pageIndex ) * this.pageEvent.pageSize;
     }
     if (this.app_param == undefined) this.app_param = ""; else this.app_param;
-      let searchString = ('?approved_level=-3&legacy_data=No&trial_type__type=Trials'+'&limit_start='+limit_start+'&limit_end='+limit_end+'&'+this.app_param);
+      // let searchString = ('?approved_level=-3&legacy_data=No&trial_type__type=Trials'+'&limit_start='+limit_start+'&limit_end='+limit_end+'&'+this.app_param);
     this.api.displayPageloading(true);
     this.api
-      .getAPI(environment.API_URL + "transaction/trials" + searchString)
+      .getAPI(environment.API_URL + "transaction/trials")
       .subscribe((res) => {
         this.api.displayPageloading(false);
         this.dataSourceApproved = new MatTableDataSource(res.data);
         this.dataListApproved = res.data;
         this.dataSourceApproved.paginator = this.paginationApproved;
          this.totalLength = res.total_length;
-        if (this.dataListApproved.length == 0) {
-          this.notification.displayMessage("No Data Found");
-        }
+        // if (this.dataListApproved.length == 0) {
+        //   this.notification.displayMessage("No Data Found");
+        // }
       });
   }
   getTrialsPending() {
@@ -223,9 +204,9 @@ export class TrialsComponent implements OnInit {
     }
     this.api.displayLoading(true)
     if (this.param == undefined) this.param = ""; else this.param;
-    let searchString = ('?approved_level=-2&legacy_data=No&trial_type__type=Trials'+'&limit_start='+limit_start+'&limit_end='+limit_end+'&'+ this.param);
+    // let searchString = ('?approved_level=-2&legacy_data=No&trial_type__type=Trials'+'&limit_start='+limit_start+'&limit_end='+limit_end+'&'+ this.param);
     this.api
-      .getAPI(environment.API_URL + "transaction/trials" + searchString)
+      .getAPI(environment.API_URL + "transaction/trials")
       .subscribe((res) => {
         this.api.displayPageloading(false);
         this.dataSourcePending = new MatTableDataSource(res.data);
@@ -233,9 +214,9 @@ export class TrialsComponent implements OnInit {
         this.totalLength = res.total_length;
         console.log('dfs', this.dataListPending)
         this.dataSourcePending.paginator = this.paginationPending;
-        if (this.dataListPending.length == 0) {
-          this.notification.displayMessage("No Data Found");
-        }
+        // if (this.dataListPending.length == 0) {
+        //   this.notification.displayMessage("No Data Found");
+        // }
       });
   }
   param: any
@@ -281,28 +262,28 @@ export class TrialsComponent implements OnInit {
      element.checked = false;
     }*/
   }
-  showTrialForm(country = {}) {
-    //console.log(country)
-    this.viewTrial = country;
-    this.viewTrial['type'] = 'view';
-    //console.log(this.viewTrial['type'])
-    localStorage.setItem('trial_form', this.api.encryptData(this.viewTrial));
-    this.goToTrialForm1(this.viewTrial.trial_type);
-    //console.log(this.viewTrial);
-  }
-  showTrialForm2(country = {}) {
-    //console.log(country)
-    this.viewTrial = country;
-    this.viewTrial['type'] = 'edit';
-    this.isReadonly = false;
-    //console.log(this.viewTrial['type'])
-    localStorage.setItem('trial_form', this.api.encryptData(this.viewTrial));
-    this.goToTrialForm1(this.viewTrial.trial_type);
-    //console.log(this.viewTrial);
-  }
+  // showTrialForm(country = {}) {
+  //   //console.log(country)
+  //   this.viewTrial = country;
+  //   this.viewTrial['type'] = 'view';
+  //   //console.log(this.viewTrial['type'])
+  //   localStorage.setItem('trial_form', this.api.encryptData(this.viewTrial));
+  //   this.goToTrialForm1(this.viewTrial.trial_type);
+  //   //console.log(this.viewTrial);
+  // }
+  // showTrialForm2(country = {}) {
+  //   //console.log(country)
+  //   this.viewTrial = country;
+  //   this.viewTrial['type'] = 'edit';
+  //   this.isReadonly = false;
+  //   //console.log(this.viewTrial['type'])
+  //   localStorage.setItem('trial_form', this.api.encryptData(this.viewTrial));
+  //   this.goToTrialForm1(this.viewTrial.trial_type);
+  //   //console.log(this.viewTrial);
+  // }
   onViewTemp() {
     closeModal('#approval-modal');
-    this.goToTrialForm1(this.trialPage);
+    // this.goToTrialForm1(this.trialPage);
   }
   /*showTrialForm()
   {
@@ -357,9 +338,9 @@ export class TrialsComponent implements OnInit {
             this.notification.success(res.message);
             this.getTrials();
             this.closebutton.nativeElement.click();
-            res.data['type'] = 'edit';
+            // res.data['type'] = 'edit';
             localStorage.setItem('trial_form', this.api.encryptData(res.data));
-            this.goToTrialForm1(res.data.trial_type);
+            // this.goToTrialForm1(res.data.trial_type);
           } else if (res.status == environment.ERROR_CODE) {
             this.error_msg = true;
             this.ErrorMsg = res.message;
@@ -413,10 +394,10 @@ export class TrialsComponent implements OnInit {
         });
     }
   }
-  trialPage: any;
-  goToTrialForm1(trial_type) {
-    this.router.navigateByUrl(trial_type.url);
-  }
+  // trialPage: any;
+  // goToTrialForm1(trial_type) {
+  //   this.router.navigateByUrl(trial_type.url);
+  // }
   approvalType = 'Recommendation';
   approvalButton = 'Recommend';
   aTrial: any;
@@ -426,7 +407,7 @@ export class TrialsComponent implements OnInit {
     this.approvalButton = type == 1 ? 'Recommend' : 'Approve';
     this.approvalForm.patchValue({ trial_id: trial.id, approved_level: (trial.approved_level), trial_unit: trial.trial_unit.id, satellite_unit: trial.satellite_unit.id, approved_role_id: this.api.userid.role_id, type: type });
     openModal('#approval-modal');
-    this.trialPage = trial.trial_type;
+    // this.trialPage = trial.trial_type;
   }
   approvalHistory: any;
   openApprovalHistory(history = '') {
@@ -461,65 +442,6 @@ export class TrialsComponent implements OnInit {
     }
   }
 
-  goToTrialForm(type) {
-    switch (type) {
-      case 'HSC':
-        this.router.navigateByUrl('/transaction/etma/hs-converter');
-        break;
-      case 'HSRP':
-        this.router.navigateByUrl('/transaction/etma/hsr-proforma');
-        break;
-      case 'IPDA':
-        this.router.navigateByUrl('/transaction/etma/inhouse-proforma-da');
-        break;
-      case 'LTPDA':
-        this.router.navigateByUrl('/transaction/etma/load-trial-proforma-da');
-        break;
-      case 'IPGTG':
-        this.router.navigateByUrl('/transaction/etma/inhouse-proforma-gtg');
-        break;
-      case 'LTPGTG':
-        this.router.navigateByUrl('/transaction/etma/load-trial-proforma-gtg');
-        break;
-      case 'PRTT':
-        this.router.navigateByUrl('/transaction/etma/pre-refit-trial');
-        break;
-      case 'POTT':
-        this.router.navigateByUrl('/transaction/etma/post-refit-trial');
-        break;
-      case 'EHC':
-        this.router.navigateByUrl('/transaction/etma/eh-checks');
-        break;
-      // CBIU
-      case 'BD':
-        this.router.navigateByUrl('transaction/cbiu/boiler-data');
-        break;
-      case 'RTN':
-        this.router.navigateByUrl('transaction/cbiu/returns');
-        break;
-      case 'FGA':
-        this.router.navigateByUrl('transaction/cbiu/flue-gas-analyser');
-        break;
-      case 'BAR':
-        this.router.navigateByUrl('transaction/cbiu/burner-alignment-readings');
-        break;
-      case 'BAP':
-        this.router.navigateByUrl('transaction/cbiu/blowing-arc-port');
-        break;
-      case 'BASTBD':
-        this.router.navigateByUrl('transaction/cbiu/blowing-arc-stbd');
-        break;
-      case 'ECO':
-        this.router.navigateByUrl('transaction/cbiu/economiser-operating');
-        break;
-      case 'INFOH':
-        this.router.navigateByUrl('transaction/cbiu/information-history');
-        break;
-      case 'INEX':
-        this.router.navigateByUrl('transaction/cbiu/internal-examination');
-        break;
-    }
-  }
 
 
   getAccess() {
