@@ -43,6 +43,7 @@ export class TrialsComponent implements OnInit {
     "requested_by",
     "requested_on",
     "status",
+    "rec",
     "view",
     "edit",
     "delete",
@@ -76,7 +77,7 @@ export class TrialsComponent implements OnInit {
     approve: false,
     print: false,
   };
-
+  tokenDetail:any
   @ViewChild(MatPaginator) pagination: MatPaginator;
   @ViewChild('paginationApproved') paginationApproved: MatPaginator;
   @ViewChild('paginationPending') paginationPending: MatPaginator;
@@ -85,6 +86,7 @@ export class TrialsComponent implements OnInit {
 
   constructor(public api: ApiService, private notification: NotificationService,
     private dialog: MatDialog, private router: Router, private elementref: ElementRef, private logger: ConsoleService) {
+  console.log("this.api",this.api.userid);
 
   }
 
@@ -94,14 +96,14 @@ export class TrialsComponent implements OnInit {
     status: new FormControl(1, [Validators.required]),
   });
   public approvalForm = new FormGroup({
-    approved_level: new FormControl(""),
-    trial_id: new FormControl("", [Validators.required]),
-    comments: new FormControl("", [Validators.required]),
+    user_id: new FormControl(this.api.userid.user_id),
+    trans_id: new FormControl("", [Validators.required]),
+    notes: new FormControl("", [Validators.required]),
     status: new FormControl("", [Validators.required]),
-    trial_unit: new FormControl("", [Validators.required]),
-    satellite_unit: new FormControl("", [Validators.required]),
-    type: new FormControl("", [Validators.required]),
-    approved_role_id: new FormControl(this.api.userid.role_id, [Validators.required]),
+    // trial_unit: new FormControl("", [Validators.required]),
+    // satellite_unit: new FormControl("", [Validators.required]),
+    // type: new FormControl("", [Validators.required]),
+    role_id: new FormControl(this.api.userid.role_id, [Validators.required]),
   });
   public importform = new FormGroup({
     file_upload: new FormControl(""),
@@ -401,11 +403,12 @@ export class TrialsComponent implements OnInit {
   approvalType = 'Recommendation';
   approvalButton = 'Recommend';
   aTrial: any;
-  openApprovalForm(trial, type = 1) {
+  openApprovalForm(trial,) {
     this.aTrial = trial;
-    this.approvalType = type == 1 ? 'Recommendation' : '';
-    this.approvalButton = type == 1 ? 'Recommend' : 'Approve';
-    this.approvalForm.patchValue({ trial_id: trial.id, approved_level: (trial.approved_level), trial_unit: trial.trial_unit.id, satellite_unit: trial.satellite_unit.id, approved_role_id: this.api.userid.role_id, type: type });
+    console.log("this.aTrial",trial);
+    // this.approvalType = type == 1 ? 'Recommendation' : '';
+    // this.approvalButton = type == 1 ? 'Recommend' : 'Approve';
+    this.approvalForm.patchValue({ trans_id: trial.id,role_id: this.api.userid.role_id});
     openModal('#approval-modal');
     // this.trialPage = trial.trial_type;
   }
@@ -423,12 +426,12 @@ export class TrialsComponent implements OnInit {
     triggerClick('#approvalSubmit');
   }
   onApprovalSubmit() {
-    //console.log('onApprovalSubmit', this.approvalForm);
+    console.log('onApprovalSubmit', this.approvalForm.value);
     if (this.approvalForm.valid) {
       //console.log(this.approvalForm.value);
-      this.api.postAPI(environment.API_URL + "transaction/trials/approval", this.approvalForm.value).subscribe((res) => {
+      this.api.postAPI(environment.API_URL + "approver/get_approved_config", this.approvalForm.value).subscribe((res) => {
         closeModal('#approval-modal');
-        this.approvalForm.patchValue({ comments: '' });
+        this.approvalForm.patchValue({ notes: '' });
         if (res.status == environment.SUCCESS_CODE) {
           this.notification.success(res.message);
           this.getTrials();

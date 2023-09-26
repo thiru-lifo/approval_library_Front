@@ -53,7 +53,7 @@ export class AppComponent implements OnInit{
     });
 
     this.resData = this.api.decryptData(localStorage.getItem("token-detail"));
-    console.log(this.resData);
+    // console.log(this.resData);
 
     if (this.api.getConfiguration('STO')) {
       if(this.api.getConfiguration('STO')=='true')
