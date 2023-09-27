@@ -44,6 +44,7 @@ export class TrialsComponent implements OnInit {
     "requested_on",
     "status",
     "rec",
+    'app',
     "view",
     "edit",
     "delete",
@@ -126,12 +127,12 @@ export class TrialsComponent implements OnInit {
   // AppHistory: any;
   openCurrentStatus(trial) {
     this.selectedTrial = trial;
-    this.api.postAPI(environment.API_URL + "transaction/approved_history", {
-      trial_id: this.selectedTrial.id,
+    this.api.postAPI(environment.API_URL + "approver/approval_history", {
+      trans_id: this.selectedTrial.id,
     }).subscribe((res) => {
       this.approvalHistory = res.data;
-      // console.log("this.approvalHistory",this.approvalHistory);
-      // openModal('#approval-history');
+      console.log("this.approvalHistory",this.approvalHistory);
+
     })
 
     openModal('#trial-status-modal');
@@ -152,6 +153,7 @@ export class TrialsComponent implements OnInit {
   ngOnInit(): void {
     this.getTrials();
     this.getAccess();
+    this.getApproveList();
     this.refreshPaginator();
   }
    refreshPaginator() {
@@ -400,10 +402,20 @@ export class TrialsComponent implements OnInit {
   // goToTrialForm1(trial_type) {
   //   this.router.navigateByUrl(trial_type.url);
   // }
+approveList:any
+ getApproveList() {
+    this.api
+      .getAPI(environment.API_URL + "approver/approval_status_list")
+      .subscribe((res) => {
+        this.approveList = res.data;
+        console.log("this.approveList",this.approveList);
+      });
+  }
+
   approvalType = 'Recommendation';
   approvalButton = 'Recommend';
   aTrial: any;
-  openApprovalForm(trial,) {
+  openApprovalForm(trial) {
     this.aTrial = trial;
     console.log("this.aTrial",trial);
     // this.approvalType = type == 1 ? 'Recommendation' : '';
@@ -425,16 +437,18 @@ export class TrialsComponent implements OnInit {
     this.approvalForm.patchValue({ status: 2 });
     triggerClick('#approvalSubmit');
   }
+
   onApprovalSubmit() {
     console.log('onApprovalSubmit', this.approvalForm.value);
     if (this.approvalForm.valid) {
       //console.log(this.approvalForm.value);
-      this.api.postAPI(environment.API_URL + "approver/get_approved_config", this.approvalForm.value).subscribe((res) => {
+      this.api.postAPI(environment.API_URL + "approver/approval_status", this.approvalForm.value).subscribe((res) => {
         closeModal('#approval-modal');
         this.approvalForm.patchValue({ notes: '' });
         if (res.status == environment.SUCCESS_CODE) {
           this.notification.success(res.message);
           this.getTrials();
+          this.getApproveList();
         } else if (res.status == environment.ERROR_CODE) {
           this.notification.displayMessage(res.message);
         } else {
